@@ -1,11 +1,20 @@
-
+var model = require('../models/citation.js');
    
 // ////////////////////////////////////////////// L I S T E R     C I T A T I O N 
    
 module.exports.ListerCitation = 	function(request, response){
    response.title = 'Liste des citations';
-  
-      response.render('listerCitation', response);
+    
+    model.getListeCitation( function (err, result) {
+        if (err) {
+            // gestion de l'erreur
+            console.log(err);
+            return;
+        }
+        response.listeCitation = result;
+        response.nbCitation = result.length;
+        response.render('listerCitation', response);
+    });
   } ;   
 
 // ////////////////////////////////////////////// A J O U T E R     C I T A T I O N 

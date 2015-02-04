@@ -1,0 +1,7 @@
+{{> enTete}} {{> menu}}
+<h1>Liste des citations déposées</h1>
+<th><td>Nom de l'enseignant</td><td>Libellé</td><td>Date</td><td>Moyenne des notes</td></th>
+{{#each listeCitation}}
+<tr>
+    <td>{{this.per_num}}</td><td>{{this.cit_libellé}}</td><td>{{this.per_num}}</td><td>{{this.per_num}}</td>
+</tr>
