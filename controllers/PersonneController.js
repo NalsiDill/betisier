@@ -7,7 +7,7 @@ var model = require('../models/personne.js');
 module.exports.ListerPersonne = function(request, response){
    response.title = 'Liste des personnes';
    
-   model.getListerPersonne( function (err, result) {
+   model.getListePersonne( function (err, result) {
         if (err) {
             // gestion de l'erreur
             console.log(err);

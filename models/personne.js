@@ -28,7 +28,7 @@ module.exports.getLoginOk = function (data, callback) {
    	});
 };
 
-module.exports.getListerPersonne = function (callback) {
+module.exports.getListePersonne = function (callback) {
 	db.getConnection(function(err, connexion){
 	    if(!err){
 		connexion.query("SELECT per_num, per_nom, per_prenom FROM personne", callback);
