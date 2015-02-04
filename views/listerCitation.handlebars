@@ -2,13 +2,13 @@
 <h1>Liste des citations déposées</h1>
 <table>
     <tr>
-        <th>Nom de l'enseignant</th>
+        <th >Nom de l'enseignant</th>
         <th>Libellé</th>
         <th>Date</th>
     </tr>
     {{#each listeCitation}}
     <tr>
-        <td>{{this.per_num}}</td>
+        <td>{{this.per_prenom}} {{this.per_nom}}</td>
         <td>{{this.cit_libelle}}</td>
         <td>{{this.cit_date}}</td>
     </tr>
