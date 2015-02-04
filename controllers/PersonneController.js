@@ -6,6 +6,17 @@ var model = require('../models/personne.js');
    
 module.exports.ListerPersonne = function(request, response){
    response.title = 'Liste des personnes';
+   
+   model.getListerPersonne( function (err, result) {
+        if (err) {
+            // gestion de l'erreur
+            console.log(err);
+            return;
+        }
+        response.listePersonne = result;
+        response.nbPersonne = result.length;
+        response.render('listerPersonne', response);
+    });
 
    response.render('listerPersonne', response);  
 };   
