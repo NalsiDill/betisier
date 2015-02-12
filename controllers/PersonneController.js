@@ -16,9 +16,7 @@ module.exports.ListerPersonne = function(request, response){
         response.listePersonne = result;
         response.nbPersonne = result.length;
         response.render('listerPersonne', response);
-    });
-
-   response.render('listerPersonne', response);  
+    }); 
 };   
 
 // ////////////////////////////////////////////// A J O U T E R     P E R S O N N E S 
