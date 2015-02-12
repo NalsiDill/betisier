@@ -36,3 +36,12 @@ module.exports.getListePersonne = function (callback) {
 	    }
    	});
 };
+
+module.exports.getPersonne = function (callback) {
+	db.getConnection(function(err, connexion){
+	    if(!err){
+		connexion.query("SELECT per_prenom FROM personne", callback);
+		connexion.release();
+	    }
+   	});
+};

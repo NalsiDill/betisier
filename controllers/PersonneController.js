@@ -26,3 +26,19 @@ module.exports.AjouterPersonne = function(request, response){
 
    response.render('ajouterPersonne', response);  
 }; 
+
+// ////////////////////////////////////////////// A F F I C H E R    P E R S O N N E
+
+module.exports.AfficherPersonne = function(request, response){
+   response.title = 'Affichage personne';
+   
+   model.getPersonne( function (err, result) {
+        if (err) {
+            // gestion de l'erreur
+            console.log(err);
+            return;
+        }
+        response.personne = result;
+        response.render('listerPersonne', response);
+    }); 
+}; 
