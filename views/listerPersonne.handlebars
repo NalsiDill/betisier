@@ -1,6 +1,5 @@
-{{> enTete}}
-{{> menu}}
- <h1>Liste des personnes enregistrées</h1>
+{{> enTete}} {{> menu}}
+<h1>Liste des personnes enregistrées</h1>
 <table>
     <tr>
 	<th>Numéro</th>
@@ -9,7 +8,7 @@
     </tr>
     {{#each listePersonne}}
     <tr>
-	<td>{{this.per_num}}</td>
+	<td><a href="/listerPersonne/{{this.per_num}}">{{this.per_num}}</a></td>
 	<td>{{this.per_nom}}</td>
 	<td>{{this.per_prenom}}</td>
     </tr>
