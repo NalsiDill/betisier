@@ -29,16 +29,17 @@ module.exports.AjouterPersonne = function(request, response){
 
 // ////////////////////////////////////////////// A F F I C H E R    P E R S O N N E
 
-module.exports.AfficherPersonne = function(request, response){
-   response.title = 'Affichage personne';
+module.exports.DetailPersonne = function(request, response){
+   var data = request.params.id;
+   response.title = 'Detail personne';
    
-   model.getPersonne( function (err, result) {
+   model.getPersonne(data, function (err, result) {
         if (err) {
             // gestion de l'erreur
             console.log(err);
             return;
         }
         response.personne = result;
-        response.render('listerPersonne', response);
+        response.render('detailPersonne', response);
     }); 
 }; 

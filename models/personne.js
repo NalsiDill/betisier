@@ -37,10 +37,19 @@ module.exports.getListePersonne = function (callback) {
    	});
 };
 
-module.exports.getPersonne = function (callback) {
+module.exports.getPersonne = function (id, callback) {
 	db.getConnection(function(err, connexion){
 	    if(!err){
-		connexion.query("SELECT per_prenom FROM personne", callback);
+		connexion.query("SELECT per_prenom FROM personne WHERE per_num="+id, callback);
+		connexion.release();
+	    }
+   	});
+};
+
+module.exports.getStatutPersonne = function (id, callback) {
+	db.getConnection(function(err, connexion){
+	    if(!err){
+		connexion.query("SELECT per_prenom FROM personne WHERE per_num="+id, callback);
 		connexion.release();
 	    }
    	});

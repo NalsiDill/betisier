@@ -1,0 +1,13 @@
+{{> enTete}} {{> menu}}
+<h1>Détail personne</h1>
+<table>
+    <tr>
+	<th>Prénom</th>
+    </tr>
+    {{#each personne}}
+    <tr>
+	<td>{{this.per_prenom}}</td>
+    </tr>
+    {{/each}}
+</table>
+ 
