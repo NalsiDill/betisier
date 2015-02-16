@@ -24,3 +24,14 @@ module.exports.getListeVille = function (callback) {
         }
       });   
 };
+
+
+module.exports.insertVille = function (data, callback) {
+    db.getConnection(function(err, connexion) {
+        console.log(data);
+        if(!err){
+            connexion.query('INSERT INTO ville set vil_nom = ? ', data, callback);
+            connexion.release();
+        }
+    });
+};
