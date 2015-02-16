@@ -17,15 +17,15 @@ var model = require('../models/ville.js');
 */
      
 module.exports.ListerVille = function (request, response) {
-   response.title = 'Liste des villes';
+    response.title = 'Liste des villes';
      
-   model.getListeVille( function (err, result) {
+    model.getListeVille(function (err, result) {
         if (err) {
             // gestion de l'erreur
             console.log(err);
             return;
         }
-   response.listeVille = result; 
+   response.listeVille = result;
    response.nbVille = result.length;
    response.render('listerVille', response);
         });   
@@ -38,12 +38,28 @@ module.exports.AjouterVille = function(request, response) {
    response.title = 'Ajouter des villes';
 	
    response.render('ajoutVille', response);
-};  
+};
+
+module.exports.VilleAjoutee = function(request, response) {
+ 
+    response.title = 'Ajouter une ville';
+    
+}
+
  
    // ////////////////////////////////////////////// I N S E R E R     V I L L E 
  
 module.exports.InsertVille = function(request, response){
     response.title = 'Insertion d\'une ville'; 
+    
+    nomVille = request.body.nomVille;
+    
+    db.getConnection(function(err,connexion){
+        if(!err){
+            connexion.query('INSERT INTO ville SET ?', nomVille, callback);
+            connexion.release();
+        }
+    });
  
  	response.render('ajoutVille', response);
 };
