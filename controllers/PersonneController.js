@@ -33,13 +33,28 @@ module.exports.DetailPersonne = function(request, response){
    var data = request.params.id;
    response.title = 'Detail personne';
    
-   model.getPersonne(data, function (err, result) {
+   model.estEtudiant(data, function (err, result) {
         if (err) {
             // gestion de l'erreur
             console.log(err);
             return;
         }
-        response.personne = result;
-        response.render('detailPersonne', response);
+        if (result == "") {
+	     model.estSalarie(data, function (err, result) {
+		if (err) {
+		    // gestion de l'erreur
+		    console.log(err);
+		    return;
+		}
+		  
+		  response.etudiant = false;
+		  response.personne = result;
+		  response.render('detailPersonne', response);
+	      });
+	} else {
+	  response.etudiant = true;
+	  response.personne = result;
+	  response.render('detailPersonne', response);
+	}
     }); 
 }; 

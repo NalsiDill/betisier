@@ -1,13 +1,35 @@
-{{> enTete}} {{> menu}}
-<h1>Détail personne</h1>
+{{> enTete}} 
+{{> menu}}
+{{#if etudiant}}
+<h1>Détail sur l'étudiant {{personne.[0].per_nom}}</h1>
+{{else}}
+<h1>Détail sur le salarié {{personne.[0].per_nom}}</h1>
+{{/if}}
 <table>
     <tr>
 	<th>Prénom</th>
+	<th>Mail</th>
+	<th>Tel</th>
+	{{#if etudiant}}
+	<th>Département</th>
+	<th>Ville</th>
+	{{else}}
+	<th>Tel pro</th>
+	<th>Fonction</th>
+	{{/if}}
     </tr>
     {{#each personne}}
     <tr>
 	<td>{{this.per_prenom}}</td>
+	<td>{{this.per_mail}}</td>
+	<td>{{this.per_tel}}</td>
+	{{#if ../etudiant}}
+	<td>{{this.div_nom}}</td>
+	<td>{{this.vil_nom}}</td>
+	{{else}}
+	<td>{{this.sal_telprof}}</td>
+	<td>{{this.fon_libelle}}</td>
+	{{/if}}
     </tr>
     {{/each}}
 </table>
- 
