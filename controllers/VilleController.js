@@ -61,7 +61,7 @@ module.exports.InsertVille = function(request, response){
         }
     });
  
- 	response.render('ajoutVille', response);
+ 	response.render('ajouterVille', response);
 };
 
    // ////////////////////////////////////////////// M O D I F I E R     V I L L E
