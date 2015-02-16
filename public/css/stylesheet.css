@@ -115,6 +115,7 @@ body {
 table {
     border-collapse: collapse;
     margin: auto;
+    margin-bottom: 30px;
 }
 td {
     border: 1px solid black;

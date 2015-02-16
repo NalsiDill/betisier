@@ -41,12 +41,8 @@ module.exports.AjouterVille = function(request, response) {
 module.exports.InsertVille = function(request, response){
     response.title = 'Insertion d\'une ville'; 
     model.insertVille(request.body.nomVille);
+    response.ville = request.body.nomVille;
  	response.render('villeAjoutee', response);
-};
-
-module.exports.VilleAjoutee = function(request, response) {
-   response.title = 'Ville ajoutée';
-   response.render('villeAjoutee', response);
 };
 
    // ////////////////////////////////////////////// M O D I F I E R     V I L L E
