@@ -19,7 +19,6 @@ module.exports = function(app){
    app.get('/listerVille', VilleController.ListerVille);
    app.get('/ajouterVille', VilleController.AjouterVille);
    app.post('/insertVille', VilleController.InsertVille);
-   app.get('/villeAjoutee', VilleController.VilleAjoutee);
    app.get('/modifierVille', VilleController.ModifierVille);
 
 // connection
