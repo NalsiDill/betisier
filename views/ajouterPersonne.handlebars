@@ -1,3 +1,54 @@
-{{> enTete}}
-{{> menu}}	
+{{> enTete}} {{> menu}}
 <h1>Ajouter des personnes</h1>
+<form method="post" action="/insertPersonne" name="ajoutPersonne">
+    <table>
+        <tr>
+            <td>Nom :</td>
+            <td>
+                <input type="text" name="nomPers" id="nomPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Prénom :</td>
+            <td>
+                <input type="text" name="prenomPers" id="prenomPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Téléphone :</td>
+            <td>
+                <input type="text" name="telPers" id="telPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Mail :</td>
+            <td>
+                <input type="text" name="mailPers" id="mailPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Login :</td>
+            <td>
+                <input type="text" name="loginPers" id="loginPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Mot de passe :</td>
+            <td>
+                <input type="password" name="mdpPers" id="mdpPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Catégorie :</td>
+            <td>
+                Etudiant <input type="radio" name="catPers" value="Etudiant" checked id="catPers">
+                Personnel <input type="radio" name="catPers" value="Personnel" id="catPers">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Valider"></td>
+        </tr>
+
+        
+    </table>
+</form>

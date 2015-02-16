@@ -2,7 +2,7 @@
 var model = require('../models/personne.js');
   
     
-// ////////////////////////////////////////////// L I S T E R     P E R S O N N E S 
+// ////////////////////// L I S T E R     P E R S O N N E S 
    
 module.exports.ListerPersonne = function(request, response){
    response.title = 'Liste des personnes';
@@ -19,15 +19,14 @@ module.exports.ListerPersonne = function(request, response){
     }); 
 };   
 
-// ////////////////////////////////////////////// A J O U T E R     P E R S O N N E S 
+// ////////////////////// A J O U T E R     P E R S O N N E S 
    
 module.exports.AjouterPersonne = function(request, response){
    response.title = 'Ajout des personnes';
-
    response.render('ajouterPersonne', response);  
 }; 
 
-// ////////////////////////////////////////////// A F F I C H E R    P E R S O N N E
+// ////////////////////// A F F I C H E R    P E R S O N N E
 
 module.exports.DetailPersonne = function(request, response){
    var data = request.params.id;

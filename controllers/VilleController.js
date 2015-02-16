@@ -31,13 +31,13 @@ module.exports.ListerVille = function (request, response) {
         });   
 };   
 
-   // ////////////////////////////////////////////// A J O U T E R     V I L L E
+   // ////////////////////// A J O U T E R     V I L L E
 module.exports.AjouterVille = function(request, response) {
    response.title = 'Ajouter des villes';
    response.render('ajoutVille', response);
 };
  
-   // ////////////////////////////////////////////// I N S E R E R     V I L L E 
+   // ////////////////////// I N S E R E R     V I L L E 
 module.exports.InsertVille = function(request, response){
     response.title = 'Insertion d\'une ville'; 
     model.insertVille(request.body.nomVille);
@@ -45,7 +45,7 @@ module.exports.InsertVille = function(request, response){
  	response.render('villeAjoutee', response);
 };
 
-   // ////////////////////////////////////////////// M O D I F I E R     V I L L E
+   // ////////////////////// M O D I F I E R     V I L L E
 module.exports.ModifierVille = function(request, response){
    response.title = 'Modifier une ville';
    response.render('modifierVille', response);
