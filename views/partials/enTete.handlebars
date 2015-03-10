@@ -1,6 +1,11 @@
 <div id="header">
     <div id="connect">
-	Utilisateur : <b>Bob  </b><a href="/deconnect">Déconnexion</a>		
+	{{#if session.nom}}
+	  Utilisateur : <b>{{session.nom}} </b><a href="/deconnect">Déconnexion</a>
+	{{else}}
+	  <a href="/connect">Connexion</a>
+	{{/if}}
+	  
     </div>	
     <div id="entete">
 	<div id="logo">
