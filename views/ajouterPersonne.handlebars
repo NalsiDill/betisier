@@ -1,6 +1,6 @@
 {{> enTete}} {{> menu}}
 <h1>Ajouter des personnes</h1>
-<form method="post" action="/insertPersonne" name="ajoutPersonne">
+<form method="post" action="/ajoutePersonne" name="ajoutPersonne">
     <table>
         <tr>
             <td>Nom :</td>
@@ -41,14 +41,14 @@
         <tr>
             <td>Catégorie :</td>
             <td>
-                Etudiant <input type="radio" name="catPers" value="Etudiant" checked id="catPers">
-                Personnel <input type="radio" name="catPers" value="Personnel" id="catPers">
+                <input type="radio" name="catPers" value="Etudiant" id="catPers">Etudiant
+                <input type="radio" name="catPers" value="Personnel" id="catPers">Personnel
             </td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Valider"></td>
+            <td colspan="2">
+                <input type="submit" value="Valider">
+            </td>
         </tr>
-
-        
     </table>
 </form>

@@ -1,0 +1,29 @@
+{{> enTete}} {{> menu}}
+<h1>Ajouter un étudiant</h1>
+<form method="post" action="/etudiantAjoute" name="">
+    <table>
+        <tr>
+            <td>Année: </td>
+            <td>
+                <select name="annee">
+                    <option value="1">Année 1</option>
+                    <option value="2">Année 2</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Département: </td>
+            <td>
+                <select>
+                    <option value="Informatique">Informatique</option>
+                    <option value="GEA">GEA</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit">
+            </td>
+        </tr>
+    </table>
+</form>

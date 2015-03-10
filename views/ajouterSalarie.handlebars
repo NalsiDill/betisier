@@ -1,0 +1,32 @@
+{{> enTete}} {{> menu}}
+<h1>Ajouter un salarié</h1>
+<form method="post" action="/salarieAjoute" name="">
+    <table>
+        <tr>
+            <td>Téléphone professionnel: </td>
+            <td>
+                <input type="tel" name="tel" id="tel">
+            </td>
+        </tr>
+        <tr>
+            <td>Fonction: </td>
+            <td>
+                <select>
+                    <option value="Chef">Chef de département</option>
+                    <option value="Chercheur">Chercheur</option>
+                    <option value="Directeur">Directeur</option>
+                    <option value="Enseignant">Enseignant</option>
+                    <option value="Imprimeur">Imprimeur</option>
+                    <option value="Ingénieur">Ingénieur</option>
+                    <option value="Secrétaire">Secrétaire</option>
+                    <option value="Technicien">Technicien</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit">
+            </td>
+        </tr>
+    </table>
+</form>

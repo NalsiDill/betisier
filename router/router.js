@@ -5,34 +5,37 @@ var CitationController = require('./../controllers/CitationController');
 var VilleController = require('./../controllers/VilleController');
 
 // Routes
-module.exports = function(app){
+module.exports = function (app) {
 
-// Main Routes
+    // Main Routes
     app.get('/', HomeController.Index);
 
-// citations
+    // citations
     app.get('/listerCitation', CitationController.ListerCitation);
     app.get('/ajouterCitation', CitationController.AjouterCitation);
     app.get('/rechercherCitation', CitationController.RechercherCitation);
 
- // villes
-   app.get('/listerVille', VilleController.ListerVille);
-   app.get('/ajouterVille', VilleController.AjouterVille);
-   app.post('/insertVille', VilleController.InsertVille);
-   app.get('/modifierVille', VilleController.ModifierVille);
+    // villes
+    app.get('/listerVille', VilleController.ListerVille);
+    app.get('/ajouterVille', VilleController.AjouterVille);
+    app.post('/insertVille', VilleController.InsertVille);
+    app.get('/modifierVille', VilleController.ModifierVille);
 
-// connection
-   app.get('/connect', ConnectController.Connect);
-   app.get('/deconnect', ConnectController.Deconnect);
+    // connection
+    app.get('/connect', ConnectController.Connect);
+    app.get('/deconnect', ConnectController.Deconnect);
 
 
- //personne
-   app.get('/listerPersonne', PersonneController.ListerPersonne);
-   app.get('/detailPersonne/:id', PersonneController.DetailPersonne);
-   app.get('/ajouterPersonne', PersonneController.AjouterPersonne);
+    //personne
+    app.get('/listerPersonne', PersonneController.ListerPersonne);
+    app.get('/detailPersonne/:id', PersonneController.DetailPersonne);
+    app.get('/ajouterPersonne', PersonneController.AjouterPersonne);
+    app.post('/ajoutePersonne', PersonneController.AjoutePersonne);
+    app.post('/etudiantAjoute', PersonneController.EtudiantAjoute);
+    app.post('/salarieAjoute', PersonneController.SalarieAjoute);
 
-// tout le reste
-  app.get('*', HomeController.Index);
-  app.post('*', HomeController.Index);
+    // tout le reste
+    app.get('*', HomeController.Index);
+    app.post('*', HomeController.Index);
 
 };
