@@ -8,7 +8,6 @@ module.exports.ListerPersonne = function (request, response) {
 
     model.getListePersonne(function (err, result) {
         if (err) {
-            // gestion de l'erreur
             console.log(err);
             return;
         }

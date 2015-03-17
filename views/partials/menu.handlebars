@@ -12,20 +12,26 @@
 		<p><img class="menuImage" src="./image/personne.png" alt="Personne"/>Personne</p>
 		<ul>		
 			<li><a href="/listerPersonne">Lister</a></li>
-			<li><a href="/ajouterPersonne">Ajouter</a></li> 
+			{{#if session.nom}}
+			<li><a href="/ajouterPersonne">Ajouter</a></li>
+			{{/if}}
 		</ul>
 		
 		<p><img class="menuImage" src="/image/citation.gif" alt="Citation"/>Citation</p>
 		<ul>				
 			<li><a href="/listerCitation">Lister</a></li>
+			{{#if session.nom}}
 			<li><a href="/rechercherCitation">Rechercher</a></li>
-			<li><a href="/ajouterCitation">Ajouter</a></li>	
+			<li><a href="/ajouterCitation">Ajouter</a></li>
+			{{/if}}
 		</ul>
 		<p><img class="menuImage" src="/image/ville.png"  alt="Ville"/>Ville</p>
 		<ul>
 			<li><a href="/listerVille">Lister</a></li>
-				<li><a href="/ajouterVille">Ajouter</a></li>
-				<li><a href="/modifierVille">Modifier</a></li>
+			{{#if session.nom}}
+			<li><a href="/ajouterVille">Ajouter</a></li>
+			<li><a href="/modifierVille">Modifier</a></li>
+			{{/if}}
 		</ul>
 	</div>
 </div>
