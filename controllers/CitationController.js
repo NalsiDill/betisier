@@ -1,4 +1,5 @@
 var model = require('../models/citation.js');
+var modelPersonne = require('../models/personne.js');
    
 // ////////////////////////////////////////////// L I S T E R     C I T A T I O N 
    
@@ -20,10 +21,26 @@ module.exports.ListerCitation = 	function(request, response){
 // ////////////////////////////////////////////// A J O U T E R     C I T A T I O N 
    
 module.exports.AjouterCitation = 	function(request, response){
-	   response.title = 'Ajouter des citations';
-   response.render('ajouterCitation', response);
-     
-  } ;   
+	response.title = 'Ajouter des citations';
+	
+	modelPersonne.getListePersonne( function (err, result) {
+        if (err) {
+            // gestion de l'erreur
+            console.log(err);
+            return;
+        }
+        response.listePersonne = result;
+		response.render('ajouterCitation', response);
+    });
+};
+
+// ////////////////////////////////////////////// I N S E R E R    C I T A T I O N 
+   
+module.exports.InsertCitation = 	function(request, response){
+	response.title = 'Ajouter des citations';
+	
+	response.render('ajouterCitation', response);
+};   
 
 
 // ////////////////////////////////////////////// R E C H E R C H E R     C I T A T I O N 

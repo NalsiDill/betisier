@@ -10,3 +10,12 @@ module.exports.getListeCitation = function (callback) {
         }
     });
 };
+
+module.exports.insertCitation = function (data, callback) {
+    db.getConnection(function(err, connexion) {
+        if(!err){
+            connexion.query('INSERT INTO citation set vil_nom = ? ', data, callback);
+            connexion.release();
+        }
+    });
+};
