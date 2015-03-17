@@ -13,6 +13,7 @@ module.exports = function (app) {
     // citations
     app.get('/listerCitation', CitationController.ListerCitation);
     app.get('/ajouterCitation', CitationController.AjouterCitation);
+	app.post('/insertCitation', VilleController.InsertCitation);
     app.get('/rechercherCitation', CitationController.RechercherCitation);
 
     // villes
@@ -23,6 +24,7 @@ module.exports = function (app) {
 
     // connection
     app.get('/connect', ConnectController.Connect);
+	app.post('/tentativeConnexion', ConnectController.TentativeConnexion);
     app.get('/deconnect', ConnectController.Deconnect);
 
 
