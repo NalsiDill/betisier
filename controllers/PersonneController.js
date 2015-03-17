@@ -33,7 +33,7 @@ module.exports.AjoutePersonne = function (request, response) {
         per_mail: request.body.mailPers,
         per_admin: 0,
         per_login: request.body.loginPers,
-        per_mdp: request.body.mdpPers
+        per_pwd: request.body.mdpPers
     };
     console.log('ajout : ', data);
     model.ajoutePersonne(data);

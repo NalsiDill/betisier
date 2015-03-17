@@ -49,6 +49,7 @@ module.exports.getPersonne = function (id, callback) {
 module.exports.ajoutePersonne = function (data, callback) {
     db.getConnection(function(err, connexion){
         if(!err){
+            console.log(data);
             connexion.query("INSERT INTO personne SET ?", data, callback);
             connexion.release();
         }
