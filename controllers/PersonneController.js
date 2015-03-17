@@ -1,4 +1,5 @@
 var model = require('../models/personne.js');
+var departement = require('../models/departement.js');
 
 
 // ////////////////////// L I S T E R     P E R S O N N E S 
@@ -42,6 +43,8 @@ module.exports.AjoutePersonne = function (request, response) {
     // teste si la redirection est vers la page étudiant ou salarié
     if (request.body.catPers == "Etudiant") {
         response.title = 'Ajouter un étudiant';
+        // liste des départements
+        response.deps = departement.GetAllDepartements();
         response.render('ajouterEtudiant', response);
     } else {
         response.title = 'Ajouter un salarié';
