@@ -50,6 +50,12 @@ module.exports.AjoutePersonne = function (request, response) {
 };
 
 module.exports.EtudiantAjoute = function (request, response) {
+    data = {
+        per_num: request.numero,
+        dep_num: request.body.departement,
+        div_num: request.body.annee
+    }
+    console.log('ajout de data :',data);
     response.title = 'Ajout de l\'étudiant réussi';
     // ajout en base avec result.insertId pour le n° de personne
     response.render('etudiantAjoute', response);
