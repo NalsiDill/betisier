@@ -1,6 +1,6 @@
 var db = require('../configDb');
 
-module.exports.GetAllDepartements = function (request, response) {
+module.exports.GetAllDepartements = function (request, callback) {
        // connexion à la base
 	db.getConnection(function (err, connexion) {
         if (!err)

@@ -11,12 +11,12 @@ var db = require('../configDb');
 *
 */
 
-module.exports.ajoutePersonne = function (data, callback) {
+module.exports.ajouteEtudiant = function (data, callback) {
     db.getConnection(function(err, connexion){
         if(!err){
             // TODO : gérer le cryptage de mdp (cf getloginok)
             console.log(data);
-            connexion.query("INSERT INTO personne SET ?", data, callback);
+            connexion.query("INSERT INTO etudiant SET ?", data, callback);
             connexion.release();
         }
     });

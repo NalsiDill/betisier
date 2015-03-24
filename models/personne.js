@@ -50,6 +50,10 @@ module.exports.ajoutePersonne = function (data, callback) {
     db.getConnection(function(err, connexion){
         if(!err){
             // TODO : gérer le cryptage de mdp (cf getloginok)
+            var sha256 = crypto.createHash("sha256"); // cryptage en sha256
+            sha256.update(data.per_pwd, "utf8");
+            var resu = sha256.digest("base64");
+            
             console.log(data);
             connexion.query("INSERT INTO personne SET ?", data, callback);
             connexion.release();

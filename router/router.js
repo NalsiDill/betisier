@@ -27,7 +27,6 @@ module.exports = function (app) {
 	app.post('/tentativeConnexion', ConnectController.TentativeConnexion);
     app.get('/deconnect', ConnectController.Deconnect);
 
-
     //personne
     app.get('/listerPersonne', PersonneController.ListerPersonne);
     app.get('/detailPersonne/:id', PersonneController.DetailPersonne);

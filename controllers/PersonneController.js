@@ -58,9 +58,9 @@ module.exports.EtudiantAjoute = function (request, response) {
         dep_num: request.body.departement,
         div_num: request.body.annee
     }
-    console.log('ajout de data :',data);
     response.title = 'Ajout de l\'étudiant réussi';
     // ajout en base avec result.insertId pour le n° de personne
+    // connexion.query("INSERT INTO personne SET ?", data, callback);
     response.render('etudiantAjoute', response);
 }
 
