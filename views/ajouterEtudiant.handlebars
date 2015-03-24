@@ -14,7 +14,7 @@
         <tr>
             <td>Département: </td>
             <td>
-                <select>
+                <select name="departement">
                     <option value="Informatique">Informatique</option>
                     <option value="GEA">GEA</option>
                 </select>
@@ -26,4 +26,9 @@
             </td>
         </tr>
     </table>
+    <ul>
+        {{#each deps}}
+        <li>{{this.dep_num}} {{this.dep_nom}}</li>
+        {{/each}}
+    </ul>
 </form>

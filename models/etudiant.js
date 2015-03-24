@@ -1,5 +1,3 @@
-// appel du module pour le cryptage du mot de passe
-var crypto=require('crypto');
 var db = require('../configDb');
 
 
@@ -12,39 +10,6 @@ var db = require('../configDb');
 *     Rien sinon
 *
 */
-module.exports.getLoginOk = function (data, callback) {
-	db.getConnection(function(err, connexion){
-	    if(!err){
-		var sha256 = crypto.createHash("sha256"); // cryptage en sha256
-		sha256.update(data.pass, "utf8");
-		var resu = sha256.digest("base64");	
-		//console.log ('Mot de passe en clair : ' + data.pass); 
-		//console.log ('Mot de passe crypté : ' + resu);	 	
-			req= "SELECT per_num from personne where per_login =" + connexion.escape(data.login) + " and per_pwd = " +connexion.escape(resu);
-		//console.log(req);
-		connexion.query(req, callback);
-		connexion.release();
-	     }
-   	});
-};
-
-module.exports.getListePersonne = function (callback) {
-	db.getConnection(function(err, connexion){
-	    if(!err){
-		connexion.query("SELECT per_num, per_nom, per_prenom FROM personne", callback);
-		connexion.release();
-	    }
-   	});
-};
-
-module.exports.getPersonne = function (id, callback) {
-	db.getConnection(function(err, connexion){
-	    if(!err){
-		connexion.query("SELECT per_prenom FROM personne WHERE per_num="+id, callback);
-		connexion.release();
-	    }
-   	});
-};
 
 module.exports.ajoutePersonne = function (data, callback) {
     db.getConnection(function(err, connexion){
