@@ -38,15 +38,17 @@ module.exports.AjouterCitation = 	function(request, response){
    
 module.exports.InsertCitation = 	function(request, response){
 	response.title = 'Ajouter des citations';
+    var dateAnglaise = request.body.date;
+    var membres = dateAnglaise.split('/');
+    dateAnglaise = new Date(membres[2],membres[1],membres[0]);
 	data = {
         per_num: parseInt(request.body.selectEnseignant),
         per_num_valide: null,
         per_num_etu: request.session.idPersonne,
         cit_libelle: request.body.citation,
-        cit_date: "2012-02-02",  /*AFFAIRE*/
+        cit_date: dateAnglaise,
         cit_valide: 0,
-        cit_date_valide: null,
-		cit_date_depo: "2012-02-02" /*AFFAIRE*/
+        cit_date_valide: null
 		
     };
 	model.insertCitation(data);

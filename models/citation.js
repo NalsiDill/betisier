@@ -14,8 +14,7 @@ module.exports.getListeCitation = function (callback) {
 module.exports.insertCitation = function (data, callback) {
     db.getConnection(function(err, connexion) {
         if(!err){
-			console.log(data);
-            connexion.query('INSERT INTO citation set ? ', data, callback);
+            connexion.query('INSERT INTO citation SET ? ', data, callback);
             connexion.release();
 		}
     });
