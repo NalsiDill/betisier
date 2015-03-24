@@ -38,8 +38,19 @@ module.exports.AjouterCitation = 	function(request, response){
    
 module.exports.InsertCitation = 	function(request, response){
 	response.title = 'Ajouter des citations';
-	
-	response.render('ajouterCitation', response);
+	data = {
+        per_num: parseInt(request.body.selectEnseignant),
+        per_num_valide: null,
+        per_num_etu: request.session.idPersonne,
+        cit_libelle: request.body.citation,
+        cit_date: "2012-02-02",  /*AFFAIRE*/
+        cit_valide: 0,
+        cit_date_valide: null,
+		cit_date_depo: "2012-02-02" /*AFFAIRE*/
+		
+    };
+	model.insertCitation(data);
+	response.render('citationAjoutee', response);
 };   
 
 
