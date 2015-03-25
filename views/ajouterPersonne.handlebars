@@ -63,7 +63,7 @@ function switchDetail(valeur){
     detail.innerHTML=" ";
     
     if(valeur == "etudiant"){
-        formulaire.setAttribute("action","/ajouteEtudiant")
+        formulaire.setAttribute("action","/etudiantAjoute")
         
         var tableau = document.createElement("table");
             detail.appendChild(tableau);
@@ -125,7 +125,7 @@ function switchDetail(valeur){
         
     }else{
         if(valeur == "personnel"){
-            formulaire.setAttribute("action","/ajoutePersonnel")
+            formulaire.setAttribute("action","/salarieAjoute")
             
             var tableau = document.createElement("table");
             detail.appendChild(tableau);
