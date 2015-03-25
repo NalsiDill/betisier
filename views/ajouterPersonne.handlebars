@@ -1,3 +1,4 @@
+<!--
 {{> enTete}} {{> menu}}
 <h1>Ajouter des personnes</h1>
 <form method="post" action="/ajoutePersonne" name="ajoutPersonne">
@@ -56,3 +57,134 @@
         
     </script>
 </form>
+-->
+
+<!-- TEST -->
+
+{{> enTete}} {{> menu}}
+<h1>Ajouter des personnes</h1>
+<form method="post" name="ajoutPersonne" id="formPers">
+    <table>
+        <tr>
+            <td>Nom :</td>
+            <td>
+                <input type="text" name="nomPers" id="nomPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Prénom :</td>
+            <td>
+                <input type="text" name="prenomPers" id="prenomPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Téléphone :</td>
+            <td>
+                <input type="text" name="telPers" id="telPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Mail :</td>
+            <td>
+                <input type="text" name="mailPers" id="mailPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Login :</td>
+            <td>
+                <input type="text" name="loginPers" id="loginPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Mot de passe :</td>
+            <td>
+                <input type="password" name="mdpPers" id="mdpPers">
+            </td>
+        </tr>
+        <tr>
+            <td>Catégorie :</td>
+            <td>
+               <select name="catPers" id="catPers" onchange="switchDetail(this.value)">
+                    <option>...</option>
+                    <option value="etudiant">Etudiant</option>
+                    <option value="personnel">Personnel</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Valider">
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+function switchDetail(valeur){
+    var formulaire = document.getElementById("formPers");
+    if(valeur =="etudiant"){
+        formulaire.setAttribute("action","/ajouteEtudiant")
+        
+        var fieldset = document.createElement("fieldset");
+        fieldset.setAttribute("id","detailsEtudiant");
+        
+        var legende = document.createElement('legend');
+        legende.createTextNode("Détails de l'étudiant");
+        fieldset.appendChild(legende);
+        
+        var tableau = document.createElement("table");
+            var tr1 = document.createElement("tr");
+            var tr2 = document.createElement("tr");
+            var tr3 = document.createElement("tr");
+            tableau.appendChild(tr1);
+            tableau.appendChild(tr2);
+            tableau.appendChild(tr3);
+        
+        var label1 = document.createElement("td");
+            label1.createTextNode("Année : ");
+            tr1.appendChild(label1);
+        
+        var selectAnnee = document.createElement("select");
+            selectAnnee.setAttribute("name","annee");
+            var option11 = document.createElement("option");
+                option1.setAttribute("value","1");
+                option1.createTextNode("Année 1");
+
+            var option12 = document.createElement("option");
+                option2.setAttribute("value","2");
+                option2.createTextNode("Année 2");
+
+            selectAnnee.appendChild(option11);
+            selectAnnee.appendChild(option12);
+       
+        var label2 = document.createElement("td");
+            label2.createTextNode("Département : ");
+            tr2.appendChild(label2);
+        
+        var selectDepartement = document.createElement("select");
+            selectAnnee.setAttribute("name","departement");
+            var option21 = document.createElement("option");
+                option21.setAttribute("value","Informatique");
+                option21.createTextNode("Informatique");
+                selectDepartement.appendChild(option21);
+        
+            var option22 = document.createElement("option");
+                option22.setAttribute("value","GEA");
+                option22.createTextNode("GEA");
+                selectDepartement.appendChild(option22);
+        
+            var tdSelectDep = document.createElement("td");
+            tdSelectDep.appendChild(selectDepartement);
+        tr2.appendChild(tdSelectDep);
+        
+        var tdBouton = document.createElement("td");
+        tdBouton.setAttribute("colspan","2");
+        
+        var bouton = document.createElement("input");
+        bouton.setAttribute("type","submit");
+        bouton.setAttribute("value","valider");
+        
+    }else{
+        
+        alert("affichage des détails du salarié");
+    }
+}</script>
