@@ -1,6 +1,6 @@
 {{> enTete}} {{> menu}}
 <h1>Ajouter des personnes</h1>
-<form method="post" name="ajoutPersonne" id="formPers">
+<form method="post" action="" name="ajoutPersonne" id="formPers">
     <table>
         <tr>
             <td>Nom :</td>
@@ -41,7 +41,7 @@
         <tr>
             <td>Catégorie :</td>
             <td>
-               <select name="catPers" id="catPers" onchange="switchDetail(this.value)">
+               <select name="catPers" id="catPers" onchange=switchDetail(this.value)>
                     <option>...</option>
                     <option value="etudiant">Etudiant</option>
                     <option value="personnel">Personnel</option>
@@ -59,20 +59,14 @@
 <script>
 function switchDetail(valeur){
     var formulaire = document.getElementById("formPers");
+    var detail = document.getElementById("details");
+    detail.innerHTML=" ";
     
     if(valeur == "etudiant"){
-        alert("chargement détails étudiant");
         formulaire.setAttribute("action","/ajouteEtudiant")
         
-        var fieldset = document.createElement("fieldset");
-            fieldset.setAttribute("id","detailsEtudiant");
-            var legende = document.createElement('legend');
-            legende.createTextNode("Détails de l'étudiant");
-            fieldset.appendChild(legende);
-            formulaire.appendChild(fieldset);
-        
         var tableau = document.createElement("table");
-            fieldset.appendChild(tableau);
+            detail.appendChild(tableau);
             var tr1 = document.createElement("tr");
             var tr2 = document.createElement("tr");
             var tr3 = document.createElement("tr");
@@ -81,36 +75,39 @@ function switchDetail(valeur){
             tableau.appendChild(tr3);
         
         var label1 = document.createElement("td");
-            label1.createTextNode("Année : ");
+            label1.textContent = "Année : ";
             tr1.appendChild(label1);
         
+        var tdSelectAn = document.createElement("td");
+            tr1.appendChild(tdSelectAn);
         var selectAnnee = document.createElement("select");
+            tdSelectAn.appendChild(selectAnnee);
             selectAnnee.setAttribute("name","annee");
             var option11 = document.createElement("option");
-                option1.setAttribute("value","1");
-                option1.createTextNode("Année 1");
+                option11.setAttribute("value","1");
+                option11.textContent = "Année 1";
 
             var option12 = document.createElement("option");
-                option2.setAttribute("value","2");
-                option2.createTextNode("Année 2");
+                option12.setAttribute("value","2");
+                option12.textContent = "Année 2";
 
             selectAnnee.appendChild(option11);
             selectAnnee.appendChild(option12);
        
         var label2 = document.createElement("td");
-            label2.createTextNode("Département : ");
+            label2.textContent = "Département : ";
             tr2.appendChild(label2);
         
         var selectDepartement = document.createElement("select");
-            selectAnnee.setAttribute("name","departement");
+            selectDepartement.setAttribute("name","departement");
             var option21 = document.createElement("option");
                 option21.setAttribute("value","Informatique");
-                option21.createTextNode("Informatique");
+                option21.textContent = "Informatique";
                 selectDepartement.appendChild(option21);
         
             var option22 = document.createElement("option");
                 option22.setAttribute("value","GEA");
-                option22.createTextNode("GEA");
+                option22.textContent = "GEA";
                 selectDepartement.appendChild(option22);
         
             var tdSelectDep = document.createElement("td");
@@ -127,7 +124,87 @@ function switchDetail(valeur){
             tdBouton.appendChild(bouton);
         
     }else{
-        
-        alert("affichage des détails du salarié");
+        if(valeur == "personnel"){
+            formulaire.setAttribute("action","/ajoutePersonnel")
+            
+            var tableau = document.createElement("table");
+            detail.appendChild(tableau);
+            var tr1 = document.createElement("tr");
+                var td11 = document.createElement("td");
+                td11.textContent = "Téléphone professionnel : "
+                tr1.appendChild(td11);
+                
+                var td12 = document.createElement("td");
+                    var tel = document.createElement("input");
+                    tel.setAttribute("id","tel");
+                    tel.setAttribute("name","tel");
+                    tel.setAttribute("type","tel");
+                    td12.appendChild(tel);
+                
+                tr1.appendChild(td11);
+                tr1.appendChild(td12);
+            
+            var tr2 = document.createElement("tr");
+                var td21 = document.createElement("td");
+                td21.textContent = "Fonction : "
+                tr2.appendChild(td21);
+            
+                var td22 = document.createElement("td");
+                    var fon = document.createElement("select");
+                    fon.setAttribute("id","fon");
+                    fon.setAttribute("name","fon");
+                        var option1 = document.createElement("option");
+                            option1.innerHTML = "Chef de département";
+                            option1.setAttribute("value","Chef");           
+                            fon.appendChild(option1);
+            
+                        var option2 = document.createElement("option");
+                            option2.innerHTML = "Chercheur";
+                            option2.setAttribute("value","Chercheur");
+                            fon.appendChild(option2);
+            
+                        var option3 = document.createElement("option");
+                            option3.innerHTML = "Directeur";
+                            option3.setAttribute("value","Directeur");
+                            fon.appendChild(option3);
+            
+                        var option4 = document.createElement("option");
+                            option4.innerHTML = "Enseignant";
+                            option4.setAttribute("value","Enseignant");
+                            fon.appendChild(option4);
+            
+                        var option5 = document.createElement("option");
+                            option5.innerHTML = "Imprimeur";
+                            option5.setAttribute("value","Imprimeur");
+                            fon.appendChild(option5);
+            
+                        var option6 = document.createElement("option");
+                            option6.innerHTML = "Ingénieur";
+                            option6.setAttribute("value","Ingenieur");
+                            fon.appendChild(option6);
+            
+                        var option7 = document.createElement("option");
+                            option7.innerHTML = "Secrétaire";
+                            option7.setAttribute("value","Secretaire");
+                            fon.appendChild(option7);
+            
+                        var option8 = document.createElement("option");
+                            option8.innerHTML = "Technicien";
+                            option8.setAttribute("value","Technicien");
+                            fon.appendChild(option8);
+            
+                td22.appendChild(fon);
+            tr2.appendChild(td22);
+            
+                
+            var tr3 = document.createElement("tr");
+            tableau.appendChild(tr1);
+            tableau.appendChild(tr2);
+            tableau.appendChild(tr3);
+            
+            
+        }else{
+            formulaire.removeAttribute("action");
+        }
     }
 }</script>
