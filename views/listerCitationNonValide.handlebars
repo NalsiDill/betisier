@@ -1,0 +1,18 @@
+{{> enTete}} {{> menu}}
+<h1>Liste des citations non validées</h1>
+<table>
+    <tr>
+        <th >Nom de l'enseignant</th>
+        <th>Libellé</th>
+        <th>Date</th>
+        <th>Valider ?</th>
+    </tr>
+    {{#each listeCitation}}
+    <tr>
+        <td>{{this.per_prenom}} {{this.per_nom}}</td>
+        <td>{{this.cit_libelle}}</td>
+        <td>{{this.cit_date}}</td>
+        <td><a href="/citationValidee/{{this.cit_num}}"><img src="/image/valid.png"></a></td>
+    </tr>
+    {{/each}}
+</table>

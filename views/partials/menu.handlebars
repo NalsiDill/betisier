@@ -24,6 +24,9 @@
 			<li><a href="/rechercherCitation">Rechercher</a></li>
 			<li><a href="/ajouterCitation">Ajouter</a></li>
 			{{/if}}
+            {{#if session.admin}}
+            <li><a href="/validerCitation">Valider</a></li>
+            {{/if}}
 		</ul>
 		<p><img class="menuImage" src="/image/ville.png"  alt="Ville"/>Ville</p>
 		<ul>

@@ -102,5 +102,46 @@ module.exports.RechercherCitation = function(request, response){
    response.render('rechercherCitation', response);
  
      		 
-  } ; 
+  } ;
+
+/* VALIDER CITATION */
+module.exports.ValiderCitation = function(request, response){
+   response.title = 'Valider des citations';
+    
+   model.getListeCitationNonValide( function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.listeCitation = result;
+        response.nbCitation = result.length;
+        response.render('listerCitationNonValide', response);
+    });
+ 
+     		 
+};
+
+module.exports.CitationValidee = function(request, response){
+    var id = parseInt(request.param("id"));
+    model.citationValidee(id, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+    });
+    
+    response.title = 'Valider des citations';
+ 
+    model.getListeCitationNonValide( function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.listeCitation = result;
+        response.nbCitation = result.length;
+        response.render('citationValidee', response);
+    });
+     		 
+};
+
 
