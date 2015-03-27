@@ -1,71 +1,87 @@
 var model = require('../models/citation.js');
 var modelSalarie = require('../models/salarie.js');
 var modelMot = require('../models/mot.js');
-   
-// ////////////////////////////////////////////// L I S T E R     C I T A T I O N 
-   
-module.exports.ListerCitation = 	function(request, response){
-   response.title = 'Liste des citations';
-    
-    model.getListeCitation( function (err, result) {
+var modelVote = require('../models/vote.js');
+
+/* LISTER CITATION */
+module.exports.ListerCitation = function (request, response) {
+    response.title = 'Liste des citations';
+
+    model.getListeCitation(function (err, result) {
         if (err) {
-            // gestion de l'erreur
             console.log(err);
             return;
         }
-        response.listeCitation = result;
-        response.nbCitation = result.length;
-        response.render('listerCitation', response);
-    });
-  } ;   
 
-// ////////////////////////////////////////////// A J O U T E R     C I T A T I O N 
-   
-module.exports.AjouterCitation = 	function(request, response){
-	response.title = 'Ajouter des citations';
-	
-	modelSalarie.getListeSalarie( function (err, result) {
+        modelVote.getListeVote(function (err, result2) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            for (var index = 0; index < result.length; index++) {
+                result[index].estNotable = true;
+                for (var index2 = 0; index2 < result2.length; index2++) {
+                    if (result[index].cit_num == result2[index2].cit_num && result2[index2].per_num == request.session.idPersonne) {
+                        result[index].estNotable = false;
+                    }
+                }
+            }
+
+            response.listeCitation = result;
+            response.nbCitation = result.length;
+
+            response.render('listerCitation', response);
+        });
+    });
+
+};
+
+/* AJOUTER CITATION */
+module.exports.AjouterCitation = function (request, response) {
+    response.title = 'Ajouter des citations';
+
+    modelSalarie.getListeSalarie(function (err, result) {
         if (err) {
             // gestion de l'erreur
             console.log(err);
             return;
         }
         response.listePersonne = result;
-		response.render('ajouterCitation', response);
+        response.render('ajouterCitation', response);
     });
 };
 
-// ////////////////////////////////////////////// I N S E R E R    C I T A T I O N 
-   
-module.exports.InsertCitation = 	function(request, response){
+/* INSERER CTATION */
+module.exports.InsertCitation = function (request, response) {
     response.title = 'Ajouter des citations';
-    
+
     modelMot.getListeMot(function (err, result) {
         if (err) {
             console.log(err);
             return;
         }
-        
+
         var citation = request.body.citation;
         var estCorrecte = true;
         var listeMotsChanges = [];
-        for(var index=0; index<result.length; index++){
+        for (var index = 0; index < result.length; index++) {
             var mot = result[index].mot_interdit;
             var motInterdit = citation.match(new RegExp(mot, "i"));
-            while(motInterdit){
+            while (motInterdit) {
                 estCorrecte = false;
                 citation = citation.replace(new RegExp(motInterdit, "g"), '---');
                 listeMotsChanges.push(motInterdit);
                 motInterdit = citation.match(new RegExp(mot, "i"));
             }
         }
-        
-        if (estCorrecte == false){
+
+        if (estCorrecte == false) {
             response.enseignant = request.body.selectEnseignant;
             response.date = request.body.date;
             response.citation = citation;
             response.motsInterdits = listeMotsChanges;
-            modelSalarie.getListeSalarie( function (err, result) {
+            modelSalarie.getListeSalarie(function (err, result) {
                 if (err) {
                     console.log(err);
                     return;
@@ -73,11 +89,11 @@ module.exports.InsertCitation = 	function(request, response){
                 response.listePersonne = result;
                 response.render('ajouterCitation', response);
             });
-            
+
         } else {
             var dateAnglaise = request.body.date;
             var membres = dateAnglaise.split('/');
-            dateAnglaise = new Date(membres[2],membres[1],membres[0]);
+            dateAnglaise = new Date(membres[2], membres[1], membres[0]);
             data = {
                 per_num: parseInt(request.body.selectEnseignant),
                 per_num_valide: null,
@@ -92,23 +108,45 @@ module.exports.InsertCitation = 	function(request, response){
             response.render('citationAjoutee', response);
         }
     });
-};   
+};
 
 
-// ////////////////////////////////////////////// R E C H E R C H E R     C I T A T I O N 
-   
-module.exports.RechercherCitation = function(request, response){
-   response.title = 'Rechercher des citations';
-   response.render('rechercherCitation', response);
- 
-     		 
-  } ;
+/* RECHERCHER CITATION */
+module.exports.RechercherCitation = function (request, response) {
+    response.title = 'Rechercher des citations';
+    response.render('rechercherCitation', response);
+
+
+};
+
+/* NOTER CITATION */
+module.exports.NoterCitation = function (request, response) {
+    var id = parseInt(request.param("id"));
+    response.idCitation = id;
+    response.render('noterCitation', response);
+};
+
+/* CITATION NOTEE */
+module.exports.CitationNotee = function (request, response) {
+    var data = {
+        cit_num: parseInt(request.param("id")),
+        per_num: request.session.idPersonne,
+        vot_valeur: request.body.note
+    }
+    modelVote.noteCitation(data, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.render('citationNotee', response);
+    });
+};
 
 /* VALIDER CITATION */
-module.exports.ValiderCitation = function(request, response){
-   response.title = 'Valider des citations';
-    
-   model.getListeCitationNonValide( function (err, result) {
+module.exports.ValiderCitation = function (request, response) {
+    response.title = 'Valider des citations';
+
+    model.getListeCitationNonValide(function (err, result) {
         if (err) {
             console.log(err);
             return;
@@ -117,11 +155,12 @@ module.exports.ValiderCitation = function(request, response){
         response.nbCitation = result.length;
         response.render('listerCitationNonValide', response);
     });
- 
-     		 
+
+
 };
 
-module.exports.CitationValidee = function(request, response){
+/* CITATION VALIDEE */
+module.exports.CitationValidee = function (request, response) {
     var id = parseInt(request.param("id"));
     model.citationValidee(id, function (err, result) {
         if (err) {
@@ -129,10 +168,10 @@ module.exports.CitationValidee = function(request, response){
             return;
         }
     });
-    
+
     response.title = 'Valider des citations';
- 
-    model.getListeCitationNonValide( function (err, result) {
+
+    model.getListeCitationNonValide(function (err, result) {
         if (err) {
             console.log(err);
             return;
@@ -141,7 +180,5 @@ module.exports.CitationValidee = function(request, response){
         response.nbCitation = result.length;
         response.render('citationValidee', response);
     });
-     		 
+
 };
-
-

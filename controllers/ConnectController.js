@@ -33,6 +33,8 @@ module.exports.TentativeConnexion = function(request, response){
 		} else {
 			request.session.nom = request.body.username;
 			request.session.idPersonne = result[0].per_num;
+            
+            
             if(result[0].per_admin == 1){
                 request.session.admin = 1;
             }

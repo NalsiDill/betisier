@@ -1,0 +1,19 @@
+{{> enTete}} {{> menu}}
+<h1>Noter une citation</h1>
+<form method="post" action="/citationNotee/{{this.idCitation}}" name="noteCitation">
+    <table>
+        <tr>
+            <td>
+                Note
+            </td>
+            <td>
+                <input type="number" name="note" min="0" max="20" placeholder="De 0 à 20">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Valider">
+            </td>
+        </tr>
+    </table>
+</form>
