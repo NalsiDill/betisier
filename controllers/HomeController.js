@@ -7,3 +7,9 @@ module.exports.Index = function(request, response){
 };
 
 
+module.exports.AccesRefuse = function(request, response){
+    response.title = "Accès refusé";
+    response.render('accesRefuse', response);
+};
+
+
