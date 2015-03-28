@@ -26,6 +26,9 @@ module.exports.ListerCitation = function (request, response) {
                         result[index].estNotable = false;
                     }
                 }
+                if(result[index].vot_moy == null){
+                    result[index].vot_moy = 'Aucune note';
+                }
             }
 
             response.listeCitation = result;

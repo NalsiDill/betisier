@@ -15,7 +15,7 @@
         <td>{{this.per_prenom}} {{this.per_nom}}</td>
         <td>{{this.cit_libelle}}</td>
         <td>{{this.cit_date}}</td>
-        <td>0</td>
+        <td>{{this.vot_moy}}</td>
         {{#if ../session.idPersonne}} 
             {{#if this.estNotable}}
                 <td><a href="/noterCitation/{{this.cit_num}}"><img title="Cliquez pour noter" src="/image/modifier.png"></a></td>
