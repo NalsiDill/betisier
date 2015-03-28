@@ -40,6 +40,7 @@ module.exports = function (app) {
     app.get('/ajouterCitation', verifEtudiant, CitationController.AjouterCitation);
     app.post('/insertCitation', verifEtudiant, CitationController.InsertCitation);
     app.get('/rechercherCitation', verifConnecte, CitationController.RechercherCitation);
+    app.post('/rechercherCitation', CitationController.CitationRecherchee);
     app.get('/validerCitation', verifAdmin, CitationController.ValiderCitation);
     app.get('/citationValidee/:id', verifAdmin, CitationController.CitationValidee);
     app.get('/noterCitation/:id', verifEtudiant, CitationController.NoterCitation);

@@ -26,7 +26,7 @@ module.exports.ListerCitation = function (request, response) {
                         result[index].estNotable = false;
                     }
                 }
-                if(result[index].vot_moy == null){
+                if (result[index].vot_moy == null) {
                     result[index].vot_moy = 'Aucune note';
                 }
             }
@@ -96,7 +96,7 @@ module.exports.InsertCitation = function (request, response) {
         } else {
             var dateAnglaise = request.body.date;
             var membres = dateAnglaise.split('/');
-            dateAnglaise = new Date(membres[2], membres[1], membres[0]);
+            dateAnglaise = new Date(membres[2], membres[1]-1, membres[0]);
             data = {
                 per_num: parseInt(request.body.selectEnseignant),
                 per_num_valide: null,
@@ -117,9 +117,54 @@ module.exports.InsertCitation = function (request, response) {
 /* RECHERCHER CITATION */
 module.exports.RechercherCitation = function (request, response) {
     response.title = 'Rechercher des citations';
-    response.render('rechercherCitation', response);
 
+    model.getListeCitationDate(function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.listeCitationDate = result;
+        model.getListeCitationSalarie(function (err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            response.listeCitationSalarie = result;
+            response.render('rechercherCitation', response);
+        });
+    });
+};
 
+/* CITATION RECHERCHEE */
+module.exports.CitationRecherchee = function (request, response) {
+    response.title = 'Rechercher des citations';
+    var data = {};
+    if (request.body.salarie != "0") {
+        data.per_num = request.body.salarie;
+    }
+    if (request.body.date != "0") {
+        var dateAnglaise = request.body.date;
+        var membres = dateAnglaise.split('/');
+        dateAnglaise = membres[2] + "-" + membres[1] + "-" + membres[0];
+        data.cit_date = dateAnglaise;
+    }
+    if (request.body.note != "-1") {
+        data.noteMoinsUn = parseInt(request.body.note) - 1;
+        data.notePlusUn = parseInt(request.body.note) + 1;
+    }
+    model.getRechercheCitation(data, function (err, result) {
+        if (result != undefined) {
+            for (var index = 0; index < result.length; index++) {
+                if (result[index].vot_moy == null) {
+                    result[index].vot_moy = 'Aucune note';
+                }
+            }
+
+        }
+        response.citation = 1;
+        response.listeCitation = result;
+        response.render('rechercherCitation', response);
+    });
 };
 
 /* NOTER CITATION */
