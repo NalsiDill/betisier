@@ -4,7 +4,7 @@ module.exports.getListeCitation = function (callback) {
 
     db.getConnection(function (err, connexion) {
         if (!err) {
-            connexion.query("SELECT c.cit_num, per_nom, per_prenom, cit_libelle, DATE_FORMAT(cit_date, '%d/%m/%Y') AS cit_date, AVG(vot_valeur) as vot_moy FROM citation c LEFT JOIN personne p ON c.per_num = p.per_num LEFT JOIN vote v on v.cit_num=c.cit_num WHERE cit_valide = 1 GROUP BY v.cit_num ", callback);
+            connexion.query("SELECT c.cit_num, per_nom, per_prenom, cit_libelle, DATE_FORMAT(cit_date, '%d/%m/%Y') AS cit_date, AVG(vot_valeur) as vot_moy FROM citation c LEFT JOIN personne p ON c.per_num = p.per_num LEFT JOIN vote v on v.cit_num=c.cit_num WHERE cit_valide = 1 GROUP BY c.cit_num ", callback);
 
             connexion.release();
         }
@@ -31,10 +31,10 @@ module.exports.insertCitation = function (data, callback) {
     });
 };
 
-module.exports.citationValidee = function (id, callback) {
+module.exports.citationValidee = function (data, callback) {
     db.getConnection(function(err, connexion) {
         if(!err){
-            connexion.query('UPDATE citation SET cit_valide = 1 WHERE cit_num='+id, callback);
+            connexion.query('UPDATE citation SET cit_valide = 1, per_num_valide='+data.per_num_valide+', cit_date_valide=CURDATE() WHERE cit_num='+data.cit_num, callback);
             connexion.release();
 		}
     });

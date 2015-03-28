@@ -6,7 +6,7 @@
         <th>Libellé</th>
         <th>Date</th>
         <th>Moyenne des notes</th>
-        {{#if session.idPersonne}}
+        {{#if session.estEtudiant}}
         <th>Noter</th>
         {{/if}}
     </tr>
@@ -16,7 +16,7 @@
         <td>{{this.cit_libelle}}</td>
         <td>{{this.cit_date}}</td>
         <td>{{this.vot_moy}}</td>
-        {{#if ../session.idPersonne}} 
+        {{#if ../session.estEtudiant}} 
             {{#if this.estNotable}}
                 <td><a href="/noterCitation/{{this.cit_num}}"><img title="Cliquez pour noter" src="/image/modifier.png"></a></td>
             {{else}}

@@ -164,8 +164,11 @@ module.exports.ValiderCitation = function (request, response) {
 
 /* CITATION VALIDEE */
 module.exports.CitationValidee = function (request, response) {
-    var id = parseInt(request.param("id"));
-    model.citationValidee(id, function (err, result) {
+    var data = {
+        cit_num: parseInt(request.param("id")),
+        per_num_valide: request.session.idPersonne
+    }
+    model.citationValidee(data, function (err, result) {
         if (err) {
             console.log(err);
             return;
