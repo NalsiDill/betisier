@@ -69,7 +69,7 @@ module.exports.InsertCitation = function (request, response) {
         var citation = request.body.citation;
         var estCorrecte = true;
         var listeMotsChanges = [];
-        
+
         // Vérification des mots interdits
         for (var index = 0; index < result.length; index++) {
             var mot = result[index].mot_interdit;
@@ -97,11 +97,11 @@ module.exports.InsertCitation = function (request, response) {
                 response.render('ajouterCitation', response);
             });
 
-        // Pas de mots interdits trouvés
+            // Pas de mots interdits trouvés
         } else {
             var dateAnglaise = request.body.date;
             var membres = dateAnglaise.split('/');
-            dateAnglaise = new Date(membres[2], membres[1]-1, membres[0]);
+            dateAnglaise = new Date(membres[2], membres[1] - 1, membres[0]);
             data = {
                 per_num: parseInt(request.body.selectEnseignant),
                 per_num_valide: null,
@@ -235,6 +235,44 @@ module.exports.CitationValidee = function (request, response) {
         response.listeCitation = result;
         response.nbCitation = result.length;
         response.render('citationValidee', response);
+    });
+
+};
+
+/* SUPPRIMER CITATION */
+module.exports.SupprimerCitation = function (request, response) {
+    response.title = 'Supprimer des citations';
+
+    model.getListeCitationAll(function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.listeCitation = result;
+        response.render('supprimerCitation', response);
+    });
+
+};
+
+/* CITATION SUPPRIMEE */
+module.exports.CitationSupprimee = function (request, response) {
+    response.title = 'Supprimer des citations';
+    
+    var id = parseInt(request.param("id"));
+    model.supprimerCitation(id, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+    });
+    
+    model.getListeCitationAll(function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.listeCitation = result;
+        response.render('citationSupprimee', response);
     });
 
 };

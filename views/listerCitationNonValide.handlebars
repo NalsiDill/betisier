@@ -1,5 +1,6 @@
 {{> enTete}} {{> menu}}
 <h1>Liste des citations non validées</h1>
+{{#if listeCitation}}
 <table>
     <tr>
         <th >Nom de l'enseignant</th>
@@ -16,3 +17,6 @@
     </tr>
     {{/each}}
 </table>
+{{else}}
+<p>Aucune citation à valider !</p>
+{{/if}}

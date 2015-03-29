@@ -16,10 +16,13 @@
 			<li><a href="/listerCitation">Lister</a></li>
 			{{#if session.nom}}
 			<li><a href="/rechercherCitation">Rechercher</a></li>
+            {{/if}}
+            {{#if session.estEtudiant}}
 			<li><a href="/ajouterCitation">Ajouter</a></li>
-			{{/if}}
+            {{/if}}
             {{#if session.admin}}
             <li><a href="/validerCitation">Valider</a></li>
+            <li><a href="/supprimerCitation">Supprimer</a></li>
             {{/if}}
 		</ul>
 		<p><img class="menuImage" src="/image/ville.png"  alt="Ville"/>Ville</p>

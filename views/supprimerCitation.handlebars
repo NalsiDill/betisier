@@ -1,0 +1,16 @@
+{{> enTete}} {{> menu}}
+<h1>Supprimer des citations</h1>
+<table>
+    <tr>
+        <th>Nom de l'enseignant</th>
+        <th>Libellé</th>
+        <th>Supprimer ?</th>
+    </tr>
+    {{#each listeCitation}}
+    <tr>
+        <td>{{this.per_prenom}} {{this.per_nom}}</td>
+        <td>{{this.cit_libelle}}</td>
+        <td><a href="/supprimerCitation/{{this.cit_num}}" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette citation ?')"><img title="Cliquez pour supprimer" src="/image/erreur.png"></a></td>
+    </tr>
+    {{/each}}
+</table>

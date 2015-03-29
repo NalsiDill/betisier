@@ -45,6 +45,8 @@ module.exports = function (app) {
     app.get('/citationValidee/:id', verifAdmin, CitationController.CitationValidee);
     app.get('/noterCitation/:id', verifEtudiant, CitationController.NoterCitation);
     app.post('/citationNotee/:id', verifEtudiant, CitationController.CitationNotee);
+    app.get('/supprimerCitation', verifAdmin, CitationController.SupprimerCitation);
+    app.get('/supprimerCitation/:id', verifAdmin, CitationController.CitationSupprimee);
 
     // villes
     app.get('/listerVille', VilleController.ListerVille);

@@ -5,7 +5,18 @@ module.exports.getListeCitation = function (callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
             connexion.query("SELECT c.cit_num, per_nom, per_prenom, cit_libelle, DATE_FORMAT(cit_date, '%d/%m/%Y') AS cit_date, AVG(vot_valeur) as vot_moy FROM citation c LEFT JOIN personne p ON c.per_num = p.per_num LEFT JOIN vote v on v.cit_num=c.cit_num WHERE cit_valide = 1 GROUP BY c.cit_num ", callback);
-            
+
+            connexion.release();
+        }
+    });
+};
+
+/* Récupère toutes les citations */
+module.exports.getListeCitationAll = function (callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            connexion.query("SELECT c.cit_num, per_nom, per_prenom, cit_libelle, DATE_FORMAT(cit_date, '%d/%m/%Y') AS cit_date, AVG(vot_valeur) as vot_moy FROM citation c LEFT JOIN personne p ON c.per_num = p.per_num LEFT JOIN vote v on v.cit_num=c.cit_num GROUP BY c.cit_num ", callback);
+
             connexion.release();
         }
     });
@@ -32,7 +43,7 @@ module.exports.getListeCitationDate = function (callback) {
     });
 };
 
-/* Récupère seulement les salariés des citations */ 
+/* Récupère seulement les salariés des citations */
 module.exports.getListeCitationSalarie = function (callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -71,7 +82,7 @@ module.exports.getRechercheCitation = function (data, callback) {
                 requete += " AND c.per_num=" + data.per_num;
             }
             if (data.cit_date) {
-                requete += " AND cit_date='" + data.cit_date+"'";
+                requete += " AND cit_date='" + data.cit_date + "'";
             }
             requete += " GROUP BY c.cit_num";
             if (data.noteMoinsUn) {
@@ -79,6 +90,17 @@ module.exports.getRechercheCitation = function (data, callback) {
             }
         }
         connexion.query(requete, callback);
+        connexion.release();
+    });
+};
+
+/* Supprime la citation (et les notes) de la BD */
+module.exports.supprimerCitation = function (id, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            connexion.query('DELETE FROM vote WHERE cit_num=' + id, callback);
+            connexion.query('DELETE FROM citation WHERE cit_num=' + id, callback);
+        }
         connexion.release();
     });
 };
