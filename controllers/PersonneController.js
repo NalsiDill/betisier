@@ -36,20 +36,28 @@ module.exports.AjoutePersonne = function (request, response) {
         per_login: request.body.loginPers,
         per_pwd: request.body.mdpPers
     };
-    console.log('ajout : ', data);
-    model.ajoutePersonne(data);
-    // renvoi du numéro de la personne pour la page suivante
-    response.numero = request.insertId;
-    // teste si la redirection est vers la page étudiant ou salarié
-    if (request.body.catPers == "Etudiant") {
-        response.title = 'Ajouter un étudiant';
-        // liste des départements
-        response.deps = departement.GetAllDepartements();
-        response.render('ajouterEtudiant', response);
-    } else {
-        response.title = 'Ajouter un salarié';
-        response.render('ajouterSalarie', response);
-    };
+    model.ajoutePersonne(data, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        model.lastInserted(function (err, result2) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            response.render('etudiantAjoute', response);
+        });
+        /*if (request.body.catPers == "Etudiant") {
+            dataEtudiant = {
+
+            }
+
+        } else {
+
+        };*/
+        
+    });
 };
 
 module.exports.EtudiantAjoute = function (request, response) {

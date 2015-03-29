@@ -65,8 +65,7 @@ module.exports = function (app) {
     app.get('/listerPersonne', PersonneController.ListerPersonne);
     app.get('/detailPersonne/:id', PersonneController.DetailPersonne);
     app.get('/ajouterPersonne', verifAdmin, PersonneController.AjouterPersonne);
-    app.post('/etudiantAjoute', verifAdmin, PersonneController.EtudiantAjoute);
-    app.post('/salarieAjoute', verifAdmin, PersonneController.SalarieAjoute);
+    app.post('/ajouterPersonne', verifAdmin, PersonneController.AjoutePersonne);
 
     // tout le reste
     app.get('*', HomeController.Index);
