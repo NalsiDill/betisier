@@ -51,3 +51,41 @@ module.exports.ModifierVille = function(request, response){
    response.render('modifierVille', response);
 }; 
 
+/* SUPPRIMER VILLE */
+module.exports.SupprimerVille = function (request, response) {
+    response.title = 'Supprimer des villes';
+
+    model.getListeVille(function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.listeVille = result;
+        response.render('supprimerVille', response);
+    });
+
+};
+
+/* VILLE SUPPRIMEE */
+module.exports.VilleSupprimee = function (request, response) {
+    response.title = 'Supprimer des villes';
+    
+    var id = parseInt(request.param("id"));
+    model.supprimerVille(id, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+    });
+    
+    model.getListeVille(function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.listeVille = result;
+        response.render('villeSupprimee', response);
+    });
+
+};
+

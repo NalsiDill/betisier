@@ -53,6 +53,8 @@ module.exports = function (app) {
     app.get('/ajouterVille', verifConnecte, VilleController.AjouterVille);
     app.post('/insertVille', verifConnecte, VilleController.InsertVille);
     app.get('/modifierVille', verifAdmin, VilleController.ModifierVille);
+    app.get('/supprimerVille', verifAdmin, VilleController.SupprimerVille);
+    app.get('/supprimerVille/:id', verifAdmin, VilleController.VilleSupprimee);
 
     // connection
     app.get('/connect', ConnectController.Connect);

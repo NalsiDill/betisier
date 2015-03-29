@@ -34,3 +34,13 @@ module.exports.insertVille = function (data, callback) {
         }
     });
 };
+
+/* Supprime la ville de la BD */
+module.exports.supprimerVille = function (id, callback) {
+    db.getConnection(function (err, connexion) {
+        if (!err) {
+            connexion.query('DELETE FROM ville WHERE vil_num=' + id, callback);
+        }
+        connexion.release();
+    });
+};

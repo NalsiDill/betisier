@@ -32,6 +32,9 @@
 			<li><a href="/ajouterVille">Ajouter</a></li>
 			<li><a href="/modifierVille">Modifier</a></li>
 			{{/if}}
+            {{#if session.admin}}
+            <li><a href="/supprimerVille">Supprimer</a></li>
+            {{/if}}
 		</ul>
 	</div>
 </div>

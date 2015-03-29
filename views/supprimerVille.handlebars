@@ -1,0 +1,19 @@
+{{> enTete}} {{> menu}}
+<h1>Supprimer des villes</h1>
+<table>
+    <tr>
+        <th>Numéro</th>
+        <th>Nom</th>
+        <th>Supprimer ?</th>
+    </tr>
+    {{#each listeVille}}
+    <tr>
+        <td>{{this.vil_num}}</td>
+        <td>{{this.vil_nom}}</td>
+        <td>
+            <a href="/supprimerVille/{{this.vil_num}}" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette ville ?')"><img title="Cliquez pour supprimer" src="/image/erreur.png">
+            </a>
+        </td>
+    </tr>
+    {{/each}}
+</table>
