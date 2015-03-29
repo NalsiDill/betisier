@@ -1,18 +1,18 @@
 var db = require('../configDb');
 
+/* Récupère les citations valides */
 module.exports.getListeCitation = function (callback) {
-
     db.getConnection(function (err, connexion) {
         if (!err) {
             connexion.query("SELECT c.cit_num, per_nom, per_prenom, cit_libelle, DATE_FORMAT(cit_date, '%d/%m/%Y') AS cit_date, AVG(vot_valeur) as vot_moy FROM citation c LEFT JOIN personne p ON c.per_num = p.per_num LEFT JOIN vote v on v.cit_num=c.cit_num WHERE cit_valide = 1 GROUP BY c.cit_num ", callback);
-
+            
             connexion.release();
         }
     });
 };
 
+/* Récupère les citations non valides */
 module.exports.getListeCitationNonValide = function (callback) {
-
     db.getConnection(function (err, connexion) {
         if (!err) {
             connexion.query("SELECT cit_num, per_nom, per_prenom, cit_libelle, DATE_FORMAT(cit_date, '%d/%m/%Y') AS cit_date FROM citation c JOIN personne p ON c.per_num = p.per_num WHERE cit_valide = 0", callback);
@@ -22,6 +22,7 @@ module.exports.getListeCitationNonValide = function (callback) {
     });
 };
 
+/* Récupère seulement les dates des citations */
 module.exports.getListeCitationDate = function (callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -31,6 +32,7 @@ module.exports.getListeCitationDate = function (callback) {
     });
 };
 
+/* Récupère seulement les salariés des citations */ 
 module.exports.getListeCitationSalarie = function (callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -40,6 +42,7 @@ module.exports.getListeCitationSalarie = function (callback) {
     });
 };
 
+/* Insère une citation dans la BD */
 module.exports.insertCitation = function (data, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -49,6 +52,7 @@ module.exports.insertCitation = function (data, callback) {
     });
 };
 
+/* Valide une citation dans la BD */
 module.exports.citationValidee = function (data, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -58,6 +62,7 @@ module.exports.citationValidee = function (data, callback) {
     });
 };
 
+/* Récupère les citations suivant les arguments de "data" */
 module.exports.getRechercheCitation = function (data, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {

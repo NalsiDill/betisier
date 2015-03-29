@@ -22,6 +22,7 @@ module.exports.ListerCitation = function (request, response) {
             for (var index = 0; index < result.length; index++) {
                 result[index].estNotable = true;
                 for (var index2 = 0; index2 < result2.length; index2++) {
+                    // On regarde si la citation a déjà été notée par l'étudiant connecté
                     if (result[index].cit_num == result2[index2].cit_num && result2[index2].per_num == request.session.idPersonne) {
                         result[index].estNotable = false;
                     }
@@ -55,7 +56,7 @@ module.exports.AjouterCitation = function (request, response) {
     });
 };
 
-/* INSERER CTATION */
+/* INSERER CITATION */
 module.exports.InsertCitation = function (request, response) {
     response.title = 'Ajouter des citations';
 
@@ -68,6 +69,8 @@ module.exports.InsertCitation = function (request, response) {
         var citation = request.body.citation;
         var estCorrecte = true;
         var listeMotsChanges = [];
+        
+        // Vérification des mots interdits
         for (var index = 0; index < result.length; index++) {
             var mot = result[index].mot_interdit;
             var motInterdit = citation.match(new RegExp(mot, "i"));
@@ -79,6 +82,7 @@ module.exports.InsertCitation = function (request, response) {
             }
         }
 
+        // On revient sur le formulaire avec les mots interdits changés
         if (estCorrecte == false) {
             response.enseignant = request.body.selectEnseignant;
             response.date = request.body.date;
@@ -93,6 +97,7 @@ module.exports.InsertCitation = function (request, response) {
                 response.render('ajouterCitation', response);
             });
 
+        // Pas de mots interdits trouvés
         } else {
             var dateAnglaise = request.body.date;
             var membres = dateAnglaise.split('/');
