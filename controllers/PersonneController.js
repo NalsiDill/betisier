@@ -1,5 +1,9 @@
 var model = require('../models/personne.js');
-var departement = require('../models/departement.js');
+var modelDep = require('../models/departement.js');
+var modelDiv = require('../models/division.js');
+var modelFon = require('../models/fonction.js');
+var modelEtu = require('../models/etudiant.js');
+var modelSal = require('../models/salarie.js');
 
 
 // ////////////////////// L I S T E R     P E R S O N N E S 
@@ -22,7 +26,31 @@ module.exports.ListerPersonne = function (request, response) {
 
 module.exports.AjouterPersonne = function (request, response) {
     response.title = 'Ajouter une personne';
-    response.render('ajouterPersonne', response);
+
+    modelDep.getAllDepartements(function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.listeDep = result;
+
+        modelDiv.getAllDivisions(function (err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            response.listeDiv = result;
+
+            modelFon.getAllFonctions(function (err, result) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                response.listeFon = result;
+                response.render('ajouterPersonne', response);
+            });
+        });
+    });
 };
 
 module.exports.AjoutePersonne = function (request, response) {
@@ -41,41 +69,48 @@ module.exports.AjoutePersonne = function (request, response) {
             console.log(err);
             return;
         }
-        model.lastInserted(function (err, result2) {
+        model.getIdByLogin(data.per_login, function (err, result2) {
             if (err) {
                 console.log(err);
                 return;
             }
-            response.render('etudiantAjoute', response);
-        });
-        /*if (request.body.catPers == "Etudiant") {
-            dataEtudiant = {
+            if (request.body.categorie == "etudiant") {
+                dataEtudiant = {
+                    per_num: result2[0].per_num,
+                    dep_num: request.body.selectDep,
+                    div_num: request.body.selectDiv
+                }
 
+                modelEtu.insertEtudiant(dataEtudiant, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    response.render('etudiantAjoute', response);
+                });
+
+
+            } else if (request.body.categorie == "salarie") {
+                dataSalarie = {
+                    per_num: result2[0].per_num,
+                    sal_telprof: request.body.telPro,
+                    fon_num: request.body.selectFon
+                }
+                modelSal.insertSalarie(dataSalarie, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    response.render('salarieAjoute', response);
+                });
+
+            } else {
+                console.log("Houston, nous avons un problème !");
             }
-
-        } else {
-
-        };*/
-        
+        });
     });
 };
 
-module.exports.EtudiantAjoute = function (request, response) {
-    data = {
-        per_num: request.numero,
-        dep_num: request.body.departement,
-        div_num: request.body.annee
-    }
-    response.title = 'Ajout de l\'étudiant réussi';
-    // ajout en base avec result.insertId pour le n° de personne
-    // connexion.query("INSERT INTO personne SET ?", data, callback);
-    response.render('etudiantAjoute', response);
-}
-
-module.exports.SalarieAjoute = function (request, response) {
-        response.title = 'Ajout du salarié réussi';
-        response.render('salarieAjoute', response);
-    }
     // ////////////////////// A F F I C H E R    P E R S O N N E
 
 module.exports.DetailPersonne = function (request, response) {

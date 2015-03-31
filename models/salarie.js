@@ -1,5 +1,13 @@
-
 var db = require('../configDb');
+
+module.exports.insertSalarie = function (data, callback) {
+    db.getConnection(function(err, connexion){
+        if(!err){
+            connexion.query("INSERT INTO salarie SET ?", data, callback);
+            connexion.release();
+        }
+    });
+};
 
 module.exports.getListeSalarie = function (callback) {
 	db.getConnection(function(err, connexion){

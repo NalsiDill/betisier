@@ -59,10 +59,10 @@ module.exports.ajoutePersonne = function (data, callback) {
     });
 };
 
-module.exports.lastInserted = function (data, callback) {
+module.exports.getIdByLogin = function (data, callback) {
     db.getConnection(function(err, connexion){
         if(!err){
-            connexion.query("SELECT last_insert_id() AS last_id FROM personne", callback);
+            connexion.query("SELECT per_num FROM personne WHERE per_login='"+data+"'", callback);
             connexion.release();
         }
     });

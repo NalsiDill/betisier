@@ -1,54 +1,87 @@
 {{> enTete}} {{> menu}}
 <h1>Ajouter des personnes</h1>
-<form method="post" action="" name="ajoutPersonne" id="formPers">
+<form method="post" action="/ajouterPersonne" name="ajoutPersonne" id="formPers">
     <table>
         <tr>
-            <td>Nom :</td>
+            <td>Nom</td>
             <td>
                 <input type="text" name="nomPers" id="nomPers">
             </td>
         </tr>
         <tr>
-            <td>Prénom :</td>
+            <td>Prénom</td>
             <td>
                 <input type="text" name="prenomPers" id="prenomPers">
             </td>
         </tr>
         <tr>
-            <td>Téléphone :</td>
+            <td>Téléphone</td>
             <td>
                 <input type="text" name="telPers" id="telPers">
             </td>
         </tr>
         <tr>
-            <td>Mail :</td>
+            <td>Mail</td>
             <td>
                 <input type="text" name="mailPers" id="mailPers">
             </td>
         </tr>
         <tr>
-            <td>Login :</td>
+            <td>Login</td>
             <td>
                 <input type="text" name="loginPers" id="loginPers">
             </td>
         </tr>
         <tr>
-            <td>Mot de passe :</td>
+            <td>Mot de passe</td>
             <td>
                 <input type="password" name="mdpPers" id="mdpPers">
             </td>
         </tr>
         <tr>
-            <td>Catégorie :</td>
+            <td>Catégorie</td>
             <td>
-               <select name="catPers" id="catPers" onchange=switchDetail(this.value)>
-                    <option>...</option>
-                    <option value="etudiant">Etudiant</option>
-                    <option value="personnel">Personnel</option>
+                <input type="radio" name="categorie" value="etudiant" id="etudiant" onchange=switchDetail()> Etudiant
+                <input type="radio" name="categorie" value="salarie" id="salarie" onchange=switchDetail()> Salarié
+            </td>
+        </tr>
+        <tr id="detailEtu1" style="display:none;">
+            <td>Année</td>
+            <td>
+                <select id="selectDiv" name="selectDiv">
+                    {{#each listeDiv}}
+                    <option value="{{this.div_num}}">{{this.div_nom}}</option>
+                    {{/each}}
                 </select>
             </td>
         </tr>
-        <tr>
+        <tr id="detailEtu2" style="display:none;">
+            <td>Département</td>
+            <td>
+                <select id="selectDep" name="selectDep">
+                    {{#each listeDep}}
+                    <option value="{{this.dep_num}}">{{this.dep_nom}}</option>
+                    {{/each}}
+                </select>
+            </td>
+        </tr>
+        <tr id="detailSal1" style="display:none;">
+            <td>Tel. pro.</td>
+            <td>
+                <input type="text" name="telPro" id="telPro">
+            </td>
+        </tr>
+        <tr id="detailSal2" style="display:none;">
+            <td>Fonction</td>
+            <td>
+                <select id="selectFon" name="selectFon">
+                    {{#each listeFon}}
+                    <option value="{{this.fon_num}}">{{this.fon_libelle}}</option>
+                    {{/each}}
+                </select>
+            </td>
+        </tr>
+        <tr id="validerPers" style="display:none;">
             <td colspan="2">
                 <input type="submit" value="Valider">
             </td>
@@ -57,154 +90,22 @@
     <div id="details"></div>
 </form>
 <script>
-function switchDetail(valeur){
-    var formulaire = document.getElementById("formPers");
-    var detail = document.getElementById("details");
-    detail.innerHTML=" ";
-    
-    if(valeur == "etudiant"){
-        formulaire.setAttribute("action","/etudiantAjoute")
-        
-        var tableau = document.createElement("table");
-            detail.appendChild(tableau);
-            var tr1 = document.createElement("tr");
-            var tr2 = document.createElement("tr");
-            var tr3 = document.createElement("tr");
-            tableau.appendChild(tr1);
-            tableau.appendChild(tr2);
-            tableau.appendChild(tr3);
-        
-        var label1 = document.createElement("td");
-            label1.textContent = "Année : ";
-            tr1.appendChild(label1);
-        
-        var tdSelectAn = document.createElement("td");
-            tr1.appendChild(tdSelectAn);
-        var selectAnnee = document.createElement("select");
-            tdSelectAn.appendChild(selectAnnee);
-            selectAnnee.setAttribute("name","annee");
-            var option11 = document.createElement("option");
-                option11.setAttribute("value","1");
-                option11.textContent = "Année 1";
+    function switchDetail() {
+        if (document.getElementById("etudiant").checked) {
+            document.getElementById("detailEtu1").style.display = "";
+            document.getElementById("detailEtu2").style.display = "";
+            document.getElementById("detailSal1").style.display = "none";
+            document.getElementById("detailSal2").style.display = "none";
+            document.getElementById("validerPers").style.display= "";
+        } else if (document.getElementById("salarie").checked) {
+            document.getElementById("detailSal1").style.display = "";
+            document.getElementById("detailSal2").style.display = "";
+            document.getElementById("detailEtu1").style.display = "none";
+            document.getElementById("detailEtu2").style.display = "none";
+            document.getElementById("validerPers").style.display= "";
 
-            var option12 = document.createElement("option");
-                option12.setAttribute("value","2");
-                option12.textContent = "Année 2";
-
-            selectAnnee.appendChild(option11);
-            selectAnnee.appendChild(option12);
-       
-        var label2 = document.createElement("td");
-            label2.textContent = "Département : ";
-            tr2.appendChild(label2);
-        
-        var selectDepartement = document.createElement("select");
-            selectDepartement.setAttribute("name","departement");
-            var option21 = document.createElement("option");
-                option21.setAttribute("value","Informatique");
-                option21.textContent = "Informatique";
-                selectDepartement.appendChild(option21);
-        
-            var option22 = document.createElement("option");
-                option22.setAttribute("value","GEA");
-                option22.textContent = "GEA";
-                selectDepartement.appendChild(option22);
-        
-            var tdSelectDep = document.createElement("td");
-            tdSelectDep.appendChild(selectDepartement);
-        tr2.appendChild(tdSelectDep);
-        
-        var tdBouton = document.createElement("td");
-        tdBouton.setAttribute("colspan","2");
-        tr3.appendChild(tdBouton);
-        
-        var bouton = document.createElement("input");
-            bouton.setAttribute("type","submit");
-            bouton.setAttribute("value","valider");
-            tdBouton.appendChild(bouton);
-        
-    }else{
-        if(valeur == "personnel"){
-            formulaire.setAttribute("action","/salarieAjoute")
-            
-            var tableau = document.createElement("table");
-            detail.appendChild(tableau);
-            var tr1 = document.createElement("tr");
-                var td11 = document.createElement("td");
-                td11.textContent = "Téléphone professionnel : "
-                tr1.appendChild(td11);
-                
-                var td12 = document.createElement("td");
-                    var tel = document.createElement("input");
-                    tel.setAttribute("id","tel");
-                    tel.setAttribute("name","tel");
-                    tel.setAttribute("type","tel");
-                    td12.appendChild(tel);
-                
-                tr1.appendChild(td11);
-                tr1.appendChild(td12);
-            
-            var tr2 = document.createElement("tr");
-                var td21 = document.createElement("td");
-                td21.textContent = "Fonction : "
-                tr2.appendChild(td21);
-            
-                var td22 = document.createElement("td");
-                    var fon = document.createElement("select");
-                    fon.setAttribute("id","fon");
-                    fon.setAttribute("name","fon");
-                        var option1 = document.createElement("option");
-                            option1.innerHTML = "Chef de département";
-                            option1.setAttribute("value","Chef");           
-                            fon.appendChild(option1);
-            
-                        var option2 = document.createElement("option");
-                            option2.innerHTML = "Chercheur";
-                            option2.setAttribute("value","Chercheur");
-                            fon.appendChild(option2);
-            
-                        var option3 = document.createElement("option");
-                            option3.innerHTML = "Directeur";
-                            option3.setAttribute("value","Directeur");
-                            fon.appendChild(option3);
-            
-                        var option4 = document.createElement("option");
-                            option4.innerHTML = "Enseignant";
-                            option4.setAttribute("value","Enseignant");
-                            fon.appendChild(option4);
-            
-                        var option5 = document.createElement("option");
-                            option5.innerHTML = "Imprimeur";
-                            option5.setAttribute("value","Imprimeur");
-                            fon.appendChild(option5);
-            
-                        var option6 = document.createElement("option");
-                            option6.innerHTML = "Ingénieur";
-                            option6.setAttribute("value","Ingenieur");
-                            fon.appendChild(option6);
-            
-                        var option7 = document.createElement("option");
-                            option7.innerHTML = "Secrétaire";
-                            option7.setAttribute("value","Secretaire");
-                            fon.appendChild(option7);
-            
-                        var option8 = document.createElement("option");
-                            option8.innerHTML = "Technicien";
-                            option8.setAttribute("value","Technicien");
-                            fon.appendChild(option8);
-            
-                td22.appendChild(fon);
-            tr2.appendChild(td22);
-            
-                
-            var tr3 = document.createElement("tr");
-            tableau.appendChild(tr1);
-            tableau.appendChild(tr2);
-            tableau.appendChild(tr3);
-            
-            
-        }else{
-            formulaire.removeAttribute("action");
+        } else {
+            alert("What is wrong with you ?!");
         }
     }
-}</script>
+</script>

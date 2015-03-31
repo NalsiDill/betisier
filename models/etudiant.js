@@ -1,26 +1,13 @@
 var db = require('../configDb');
 
-
-/*
-* Vérifie le nom utilisateur et son mot de passe
-* 
-* @param     data.login : le login de l'utilisateur
-* @param     data.pass : le mot de passe
-* @return l'identifiant de la personne si le mot de passe et le login sont bons
-*     Rien sinon
-*
-*/
-
-module.exports.ajouteEtudiant = function (data, callback) {
+module.exports.insertEtudiant = function (data, callback) {
     db.getConnection(function(err, connexion){
         if(!err){
-            // TODO : gérer le cryptage de mdp (cf getloginok)
-            console.log(data);
             connexion.query("INSERT INTO etudiant SET ?", data, callback);
             connexion.release();
         }
     });
-}
+};
 
 module.exports.estEtudiant = function (id, callback) {
 	db.getConnection(function(err, connexion){
