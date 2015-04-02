@@ -87,12 +87,12 @@
             </td>
         </tr>
     </table>
-    <div id="details"></div>
+    <input id="dep" name="dep" style="display: none;" value="{{this.dep_num}}"/>    
+    <input id="div" name="div" style="display: none;" value="{{this.div_num}}"/>
+        <input id="fon" name="fon" style="display: none;" value="{{this.fon_num}}"/>
 </form>
 
-<p id="dep" style="display: none;">{{this.dep_num}}</p>
-<p id="div" style="display: none;">{{this.div_num}}</p>
-<p id="fon" style="display: none;">{{this.fon_num}}</p>
+
 
 
 <script>
@@ -123,8 +123,8 @@
     function listeSelection() {
         var val;
         var select;
-        if (document.getElementById("dep").firstChild != null) {
-            val = document.getElementById("dep").firstChild.nodeValue;
+        if (document.getElementById("dep").value != null) {
+            val = document.getElementById("dep").value;
             select = document.getElementById("selectDep");
 
             for (var i = 0; i < select.options.length; i++) {
@@ -133,7 +133,7 @@
                 }
             }
 
-            val = document.getElementById("div").firstChild.nodeValue;
+            val = document.getElementById("div").value;
             select = document.getElementById("selectDiv");
 
             for (var i = 0; i < select.options.length; i++) {
@@ -142,7 +142,7 @@
                 }
             }
         } else {
-            val = document.getElementById("fon").firstChild.nodeValue;
+            val = document.getElementById("fon").value;
             select = document.getElementById("selectFon");
 
             for (var i = 0; i < select.options.length; i++) {

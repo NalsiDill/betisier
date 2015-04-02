@@ -120,6 +120,7 @@ module.exports.SupprimerPersonne = function (request, response) {
 module.exports.ModifierPersonne = function (request, response) {
     var data = request.params.id;
     response.title = 'Modifier une personne';
+    response.per_num = data;
     modelDep.getAllDepartements(function (err, result) {
         if (err) {
             console.log(err);
@@ -182,9 +183,85 @@ module.exports.ModifierPersonne = function (request, response) {
 };
 
 module.exports.PersonneModifiee = function (request, response) {
+    var id = request.params.id;
+    data = {
+        per_num: id,
+        per_nom: request.body.nomPers,
+        per_prenom: request.body.prenomPers,
+        per_tel: request.body.telPers,
+        per_mail: request.body.mailPers,
+        per_admin: 0,
+        per_login: request.body.loginPers,
+        per_pwd: request.body.mdpPers
+    };
+    model.modifiePersonne(data, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        if (request.body.categorie == "etudiant") {
+            dataEtudiant = {
+                per_num: id,
+                dep_num: request.body.selectDep,
+                div_num: request.body.selectDiv
+            };
+            // Test si la personne était un salarié
+            if (request.body.fon) {
+                modelSal.deleteSalarie(data.per_num, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    modelEtu.insertEtudiant(dataEtudiant, function (err, result) {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                        response.render('personneModifiee', response);
+                    });
+                });
+            } else {
+                modelEtu.updateEtudiant(dataEtudiant, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    response.render('personneModifiee', response);
+                });
+            }
 
-    response.render('listerPersonne', response);
-
+        } else if (request.body.categorie == "salarie") {
+            dataSalarie = {
+                per_num: id,
+                sal_telprof: request.body.telPro,
+                fon_num: request.body.selectFon
+            };
+            // Test si la personne était un étudiant
+            if (request.body.dep) {
+                modelEtu.deleteEtudiant(data.per_num, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    modelSal.insertSalarie(dataSalarie, function (err, result) {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                        response.render('personneModifiee', response);
+                    });
+                });
+            } else {
+                modelSal.updateSalarie(dataSalarie, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    response.render('personneModifiee', response);
+                });
+            }
+        }
+    });
 };
 
 

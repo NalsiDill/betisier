@@ -59,6 +59,19 @@ module.exports.ajoutePersonne = function (data, callback) {
     });
 };
 
+module.exports.modifiePersonne = function (data, callback) {
+    db.getConnection(function(err, connexion){
+        if(!err){
+            var sha256 = crypto.createHash("sha256");
+            sha256.update(data.per_pwd, "utf8");
+            var resu = sha256.digest("base64");
+            data.per_pwd = resu;
+            connexion.query("UPDATE personne SET ? WHERE per_num="+data.per_num, data, callback);
+            connexion.release();
+        }
+    });
+};
+
 module.exports.getIdByLogin = function (data, callback) {
     db.getConnection(function(err, connexion){
         if(!err){

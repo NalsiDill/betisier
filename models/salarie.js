@@ -17,3 +17,22 @@ module.exports.getListeSalarie = function (callback) {
 	    }
    	});
 };
+
+module.exports.deleteSalarie = function (data, callback) {
+    db.getConnection(function(err, connexion){
+        if(!err){
+            connexion.query("DELETE FROM salarie WHERE per_num="+data, callback);
+            connexion.release();
+        }
+    });
+};
+
+
+module.exports.updateSalarie = function (data, callback) {
+    db.getConnection(function(err, connexion){
+        if(!err){
+            connexion.query("UPDATE salarie SET ? WHERE per_num="+data.per_num, data, callback);
+            connexion.release();
+        }
+    });
+};
