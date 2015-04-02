@@ -111,96 +111,22 @@ module.exports.AjoutePersonne = function (request, response) {
     });
 };
 
-module.exports.SupprimerPersonne = function (request, response) {
+    // ////////////////////// A F F I C H E R    P E R S O N N E
 
-    response.render('listerPersonne', response);
-
-};
-
-module.exports.ModifierPersonne = function (request, response) {
-    var data = request.params.id;
-    response.title = 'Modifier une personne';
-    modelDep.getAllDepartements(function (err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        response.listeDep = result;
-
-        modelDiv.getAllDivisions(function (err, result) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            response.listeDiv = result;
-
-            modelFon.getAllFonctions(function (err, result) {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                response.listeFon = result;
-
-                model.getPersonne(data, function (err, result) {
-                    if (err) {
-                        console.log(err);
-                        return;
-                    }
-                    response.per_nom = result[0].per_nom;
-                    response.per_prenom = result[0].per_prenom;
-                    response.per_tel = result[0].per_tel;
-                    response.per_mail = result[0].per_mail;
-                    response.per_login = result[0].per_login;
-                    response.per_pwd = result[0].per_pwd;
-
-                    model.estEtudiant(data, function (err, result) {
-                        if (err) {
-                            console.log(err);
-                            return;
-                        }
-                        if (result != "") {
-                            response.dep_num = result[0].dep_num;
-                            response.div_num = result[0].div_num;
-                            response.render('modifierPersonne', response);
-                        } else {
-                            model.estSalarie(data, function (err, result) {
-                                if (err) {
-                                    console.log(err);
-                                    return;
-                                }
-
-                                response.sal_telprof = result[0].sal_telprof;
-                                response.fon_num = result[0].fon_num;
-                                response.render('modifierPersonne', response);
-                            });
-                        }
-                    });
-                });
-            });
-        });
-    });
-};
-
-module.exports.PersonneModifiee = function (request, response) {
-
-    response.render('listerPersonne', response);
-
-};
-
-
-/* AFFICHER PERSONNE */
 module.exports.DetailPersonne = function (request, response) {
     var data = request.params.id;
     response.title = 'Detail personne';
 
     model.estEtudiant(data, function (err, result) {
         if (err) {
+            // gestion de l'erreur
             console.log(err);
             return;
         }
         if (result == "") {
             model.estSalarie(data, function (err, result) {
                 if (err) {
+                    // gestion de l'erreur
                     console.log(err);
                     return;
                 }
