@@ -40,7 +40,7 @@ module.exports.getListePersonne = function (callback) {
 module.exports.getPersonne = function (id, callback) {
 	db.getConnection(function(err, connexion){
 	    if(!err){
-		connexion.query("SELECT per_prenom FROM personne WHERE per_num="+id, callback);
+		connexion.query("SELECT per_nom, per_prenom, per_tel, per_mail, per_login, per_pwd FROM personne WHERE per_num="+id, callback);
 		connexion.release();
 	    }
    	});
@@ -71,7 +71,7 @@ module.exports.getIdByLogin = function (data, callback) {
 module.exports.estEtudiant = function (id, callback) {
 	db.getConnection(function(err, connexion){
 	    if(!err){
-		connexion.query("SELECT per_nom, per_prenom, per_mail, per_tel, div_nom, vil_nom FROM personne p JOIN etudiant e on p.per_num=e.per_num JOIN division di on di.div_num=e.div_num JOIN departement de on de.dep_num=e.dep_num JOIN ville v on v.vil_num=de.vil_num WHERE e.per_num="+id, callback);
+		connexion.query("SELECT per_nom, per_prenom, per_mail, per_tel, div_nom, vil_nom, e.dep_num, e.div_num FROM personne p JOIN etudiant e on p.per_num=e.per_num JOIN division di on di.div_num=e.div_num JOIN departement de on de.dep_num=e.dep_num JOIN ville v on v.vil_num=de.vil_num WHERE e.per_num="+id, callback);
 		connexion.release();
 	    }
    	});
@@ -80,7 +80,7 @@ module.exports.estEtudiant = function (id, callback) {
 module.exports.estSalarie = function (id, callback) {
 	db.getConnection(function(err, connexion){
 	    if(!err){
-		connexion.query("SELECT per_nom, per_prenom, per_mail, per_tel, sal_telprof, fon_libelle FROM personne p JOIN salarie s on p.per_num=s.per_num JOIN fonction f on f.fon_num=s.fon_num WHERE s.per_num="+id, callback);
+		connexion.query("SELECT per_nom, per_prenom, per_mail, per_tel, sal_telprof, fon_libelle, s.fon_num FROM personne p JOIN salarie s on p.per_num=s.per_num JOIN fonction f on f.fon_num=s.fon_num WHERE s.per_num="+id, callback);
 		connexion.release();
 	    }
    	});

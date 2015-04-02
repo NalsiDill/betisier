@@ -1,0 +1,155 @@
+{{> enTete}} {{> menu}}
+<h1>Modifier une personne</h1>
+<form method="post" action="/modifierPersonne/{{this.per_num}}" name="modifierPersonne" id="formPers">
+    <table>
+        <tr>
+            <td>Nom</td>
+            <td>
+                <input type="text" name="nomPers" id="nomPers" value="{{this.per_nom}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Prénom</td>
+            <td>
+                <input type="text" name="prenomPers" id="prenomPers" value="{{this.per_prenom}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Téléphone</td>
+            <td>
+                <input type="text" name="telPers" id="telPers" value="{{this.per_tel}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Mail</td>
+            <td>
+                <input type="text" name="mailPers" id="mailPers" value="{{this.per_mail}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Login</td>
+            <td>
+                <input type="text" name="loginPers" id="loginPers" value="{{this.per_login}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Mot de passe</td>
+            <td>
+                <input type="password" name="mdpPers" id="mdpPers" value="{{this.per_pwd}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Catégorie</td>
+            <td>
+                <input type="radio" name="categorie" value="etudiant" id="etudiant" onchange=switchDetail() {{#if this.dep_num}} checked {{/if}}> Etudiant
+                <input type="radio" name="categorie" value="salarie" id="salarie" onchange=switchDetail() {{#if this.fon_num}} checked {{/if}}> Salarié
+            </td>
+        </tr>
+        <tr id="detailEtu1" style="display:none;">
+            <td>Année</td>
+            <td>
+                <select id="selectDiv" name="selectDiv">
+                    {{#each listeDiv}}
+                    <option value="{{this.div_num}}">{{this.div_nom}}</option>
+                    {{/each}}
+                </select>
+            </td>
+        </tr>
+        <tr id="detailEtu2" style="display:none;">
+            <td>Département</td>
+            <td>
+                <select id="selectDep" name="selectDep">
+                    {{#each listeDep}}
+                    <option value="{{this.dep_num}}">{{this.dep_nom}}</option>
+                    {{/each}}
+                </select>
+            </td>
+        </tr>
+        <tr id="detailSal1" style="display:none;">
+            <td>Tel. pro.</td>
+            <td>
+                <input type="text" name="telPro" id="telPro" value="{{this.sal_telprof}}">
+            </td>
+        </tr>
+        <tr id="detailSal2" style="display:none;">
+            <td>Fonction</td>
+            <td>
+                <select id="selectFon" name="selectFon">
+                    {{#each listeFon}}
+                    <option value="{{this.fon_num}}">{{this.fon_libelle}}</option>
+                    {{/each}}
+                </select>
+            </td>
+        </tr>
+        <tr id="validerPers" style="display:none;">
+            <td colspan="2">
+                <input type="submit" value="Valider">
+            </td>
+        </tr>
+    </table>
+    <div id="details"></div>
+</form>
+
+<p id="dep" style="display: none;">{{this.dep_num}}</p>
+<p id="div" style="display: none;">{{this.div_num}}</p>
+<p id="fon" style="display: none;">{{this.fon_num}}</p>
+
+
+<script>
+    window.onload = start();
+
+    function start() {
+        switchDetail();
+        listeSelection();
+    }
+
+    function switchDetail() {
+        if (document.getElementById("etudiant").checked) {
+            document.getElementById("detailEtu1").style.display = "";
+            document.getElementById("detailEtu2").style.display = "";
+            document.getElementById("detailSal1").style.display = "none";
+            document.getElementById("detailSal2").style.display = "none";
+            document.getElementById("validerPers").style.display = "";
+        } else if (document.getElementById("salarie").checked) {
+            document.getElementById("detailSal1").style.display = "";
+            document.getElementById("detailSal2").style.display = "";
+            document.getElementById("detailEtu1").style.display = "none";
+            document.getElementById("detailEtu2").style.display = "none";
+            document.getElementById("validerPers").style.display = "";
+
+        }
+    }
+
+    function listeSelection() {
+        var val;
+        var select;
+        if (document.getElementById("dep").firstChild != null) {
+            val = document.getElementById("dep").firstChild.nodeValue;
+            select = document.getElementById("selectDep");
+
+            for (var i = 0; i < select.options.length; i++) {
+                if (select.options[i].value == val) {
+                    select.options[i].selected = true;
+                }
+            }
+
+            val = document.getElementById("div").firstChild.nodeValue;
+            select = document.getElementById("selectDiv");
+
+            for (var i = 0; i < select.options.length; i++) {
+                if (select.options[i].value == val) {
+                    select.options[i].selected = true;
+                }
+            }
+        } else {
+            val = document.getElementById("fon").firstChild.nodeValue;
+            select = document.getElementById("selectFon");
+
+            for (var i = 0; i < select.options.length; i++) {
+                if (select.options[i].value == val) {
+                    select.options[i].selected = true;
+                }
+            }
+        }
+    }
+</script>

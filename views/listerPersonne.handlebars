@@ -2,15 +2,25 @@
 <h1>Liste des personnes enregistrées</h1>
 <table>
     <tr>
-	<th>Numéro</th>
-	<th>Nom</th>
-	<th>Prénom</th>
+        <th>Numéro</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        {{#if session.admin}}
+        <th>Modifier</th>
+        {{/if}}
     </tr>
     {{#each listePersonne}}
     <tr>
-	<td><a href="/detailPersonne/{{this.per_num}}">{{this.per_num}}</a></td>
-	<td>{{this.per_nom}}</td>
-	<td>{{this.per_prenom}}</td>
+        <td><a href="/detailPersonne/{{this.per_num}}">{{this.per_num}}</a>
+        </td>
+        <td>{{this.per_nom}}</td>
+        <td>{{this.per_prenom}}</td>
+        {{#if ../session.admin}}
+        <td>
+            <a href="/modifierPersonne/{{this.per_num}}"><img title="Cliquez pour modifier" src="/image/modifier.png">
+            </a>
+        </td>
+        {{/if}}
     </tr>
     {{/each}}
 </table>

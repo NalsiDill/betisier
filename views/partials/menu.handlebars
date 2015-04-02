@@ -6,9 +6,10 @@
 		<p><img class="menuImage" src="./image/personne.png" alt="Personne"/>Personne</p>
 		<ul>		
 			<li><a href="/listerPersonne">Lister</a></li>
-			{{#if session.nom}}
+            {{#if session.admin}}
 			<li><a href="/ajouterPersonne">Ajouter</a></li>
-			{{/if}}
+            <li><a href="/supprimerPersonne">Supprimer</a></li>
+            {{/if}}
 		</ul>
 		
 		<p><img class="menuImage" src="/image/citation.gif" alt="Citation"/>Citation</p>
