@@ -34,8 +34,9 @@
         </tr>
         <tr>
             <td>Mot de passe</td>
-            <td>
-                <input type="password" name="mdpPers" id="mdpPers" value="{{this.per_pwd}}">
+            <td onclick=changerMdp()>
+                <input type="checkbox" id="changerMdp" name="changerMdp" value="changerMdp">Changer le mot de passe ?<br>
+                <input type="password" name="mdpPers" id="mdpPers">
             </td>
         </tr>
         <tr>
@@ -101,6 +102,7 @@
     function start() {
         switchDetail();
         listeSelection();
+        changerMdp();
     }
 
     function switchDetail() {
@@ -150,6 +152,15 @@
                     select.options[i].selected = true;
                 }
             }
+        }
+    }
+    
+    function changerMdp() {
+        var mdp = document.getElementById("mdpPers");
+        if(document.getElementById("changerMdp").checked == true){
+            mdp.style.display = "";
+        } else {
+            mdp.style.display = "none";
         }
     }
 </script>

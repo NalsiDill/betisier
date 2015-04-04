@@ -205,7 +205,6 @@ module.exports.ModifierPersonne = function (request, response) {
                     response.per_tel = result[0].per_tel;
                     response.per_mail = result[0].per_mail;
                     response.per_login = result[0].per_login;
-                    response.per_pwd = result[0].per_pwd;
 
                     model.estEtudiant(data, function (err, result) {
                         if (err) {
@@ -245,9 +244,12 @@ module.exports.PersonneModifiee = function (request, response) {
         per_tel: request.body.telPers,
         per_mail: request.body.mailPers,
         per_admin: 0,
-        per_login: request.body.loginPers,
-        per_pwd: request.body.mdpPers
+        per_login: request.body.loginPers
+        
     };
+    if(request.body.changerMdp == "changerMdp"){
+        data.per_pwd = request.body.mdpPers;
+    }
     model.modifiePersonne(data, function (err, result) {
         if (err) {
             console.log(err);
