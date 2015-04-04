@@ -9,7 +9,11 @@
     </div>	
     <div id="entete">
 	<div id="logo">
+        {{#if session.nom}}
 		<img src="image/smile.png" id= "imLogo" alt="Logo bêtisier IUT" title="Logo bêtisier IUT Limousin" />
+        {{else}}
+        <img src="image/lol.png" id= "imLogo" alt="Logo bêtisier IUT" title="Logo bêtisier IUT Limousin" />
+        {{/if}}
 	</div>
 	    
 	<div id="titre"> 

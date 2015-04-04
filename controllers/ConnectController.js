@@ -1,6 +1,6 @@
 var model = require('../models/personne.js');
 
-// ////////////////////////////////////////////// C O N N E C T   U T I L I S A T E U R 
+/* CONNEXION UTILISATEUR */
 module.exports.Connect = function (request, response) {
     response.title = 'Connexion';
     response.nb1 = Math.floor(Math.random() * (9 - 1 + 1) + 1);
@@ -9,6 +9,7 @@ module.exports.Connect = function (request, response) {
     response.render('connect', response);
 };
 
+/* TENTATIVE CONNEXION */
 module.exports.TentativeConnexion = function (request, response) {
     var data = {
         login: request.body.username,
@@ -58,7 +59,7 @@ module.exports.TentativeConnexion = function (request, response) {
 
 };
 
-// ////////////////////////////////////////////// D E C O N N E C T   U T I L I S A T E U R 
+/* DECONNEXION UTILISATEUR */
 module.exports.Deconnect = function (request, response) {
     request.session.destroy();
     response.redirect('/connect');

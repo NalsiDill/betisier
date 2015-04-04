@@ -1,0 +1,25 @@
+{{> enTete}} {{> menu}}
+<h1>Supprimer des personnes</h1>
+{{#if suppression}}
+<h3><img src="/image/valid.png"> La personne a été supprimée !</h3>
+{{else}}
+<table>
+    <tr>
+        <th>Numéro</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Supprimer ?</th>
+    </tr>
+    {{#each listePersonne}}
+    <tr>
+        <td>{{this.per_num}}</td>
+        <td>{{this.per_nom}}</td>
+        <td>{{this.per_prenom}}</td>
+        <td>
+            <a href="/supprimerPersonne/{{this.per_num}}"  onclick="return confirm('Etes-vous sûr de vouloir supprimer cette personne ?')"><img title="Cliquez pour supprimer" src="/image/erreur.png">
+            </a>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+{{/if}}

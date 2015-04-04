@@ -68,7 +68,8 @@ module.exports = function (app) {
     app.post('/ajouterPersonne', verifAdmin, PersonneController.AjoutePersonne);
     app.get('/modifierPersonne/:id', verifAdmin, PersonneController.ModifierPersonne);
     app.post('/modifierPersonne/:id', verifAdmin, PersonneController.PersonneModifiee);
-    app.get('/supprimerPersonne/:id', verifAdmin, PersonneController.SupprimerPersonne);
+    app.get('/supprimerPersonne', verifAdmin, PersonneController.SupprimerPersonne);
+    app.get('/supprimerPersonne/:id', verifAdmin, PersonneController.PersonneSupprimee);
 
     // tout le reste
     app.get('*', HomeController.Index);

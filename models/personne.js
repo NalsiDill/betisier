@@ -98,3 +98,12 @@ module.exports.estSalarie = function (id, callback) {
 	    }
    	});
 };
+
+module.exports.deletePersonne = function (id, callback) {
+	db.getConnection(function(err, connexion){
+	    if(!err){
+		connexion.query("DELETE FROM personne WHERE per_num="+id, callback);
+		connexion.release();
+	    }
+   	});
+};

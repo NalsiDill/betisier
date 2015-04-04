@@ -6,8 +6,7 @@ var modelEtu = require('../models/etudiant.js');
 var modelSal = require('../models/salarie.js');
 
 
-// ////////////////////// L I S T E R     P E R S O N N E S 
-
+/* LISTER PERSONNE */
 module.exports.ListerPersonne = function (request, response) {
     response.title = 'Liste des personnes';
 
@@ -22,8 +21,7 @@ module.exports.ListerPersonne = function (request, response) {
     });
 };
 
-// ////////////////////// A J O U T E R     P E R S O N N E S 
-
+/* AJOUTER PERSONNE */
 module.exports.AjouterPersonne = function (request, response) {
     response.title = 'Ajouter une personne';
 
@@ -53,6 +51,7 @@ module.exports.AjouterPersonne = function (request, response) {
     });
 };
 
+/* INSERER PERSONNE */
 module.exports.AjoutePersonne = function (request, response) {
     // ajout de la personne en base
     data = {
@@ -111,12 +110,66 @@ module.exports.AjoutePersonne = function (request, response) {
     });
 };
 
+/* SUPPRIMER PERSONNE */
 module.exports.SupprimerPersonne = function (request, response) {
+    response.title = 'Supprimer des personnes';
 
-    response.render('listerPersonne', response);
-
+    model.getListePersonne(function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        response.listePersonne = result;
+        response.render('supprimerPersonne', response);
+    });
 };
 
+/* PERSONNE SUPPRIMEE */
+module.exports.PersonneSupprimee = function (request, response) {
+    var id = request.params.id;
+    response.title = 'Supprimer des personnes';
+
+    model.estEtudiant(id, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        if (result != "") {
+            modelEtu.deleteEtudiant(id, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+
+                model.deletePersonne(id, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    response.suppression = true;
+                    response.render('supprimerPersonne', response);
+                });
+            });
+        } else {
+            modelSal.deleteSalarie(id, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                model.deletePersonne(id, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    response.suppression = true;
+                    response.render('supprimerPersonne', response);
+                });
+            });
+        }
+    });
+};
+
+/* MODIFIER PERSONNE */
 module.exports.ModifierPersonne = function (request, response) {
     var data = request.params.id;
     response.title = 'Modifier une personne';
@@ -182,6 +235,7 @@ module.exports.ModifierPersonne = function (request, response) {
     });
 };
 
+/* PERSONNE MODIFIEE */
 module.exports.PersonneModifiee = function (request, response) {
     var id = request.params.id;
     data = {
@@ -265,7 +319,7 @@ module.exports.PersonneModifiee = function (request, response) {
 };
 
 
-/* AFFICHER PERSONNE */
+/* AFFICHER DETAILS PERSONNE */
 module.exports.DetailPersonne = function (request, response) {
     var data = request.params.id;
     response.title = 'Detail personne';
