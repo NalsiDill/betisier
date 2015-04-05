@@ -2,8 +2,8 @@
 	<div id="menu">
 		<div id="menuInt">
 		
-		<p><a href="/"><img class="menuImage" src="./image/accueil.gif" alt="Accueil"/>Accueil</a></p>
-		<p><img class="menuImage" src="./image/personne.png" alt="Personne"/>Personne</p>
+		<p><a href="/"><img class="menuImage" src="./image/accueil.gif" alt="Accueil"/> Accueil</a></p>
+		<p><img class="menuImage" src="./image/personne.png" alt="Personne"/> Personne</p>
 		<ul>		
 			<li><a href="/listerPersonne">Lister</a></li>
             {{#if session.admin}}
@@ -12,7 +12,7 @@
             {{/if}}
 		</ul>
 		
-		<p><img class="menuImage" src="/image/citation.gif" alt="Citation"/>Citation</p>
+		<p><img class="menuImage" src="/image/citation.gif" alt="Citation"/> Citation</p>
 		<ul>				
 			<li><a href="/listerCitation">Lister</a></li>
 			{{#if session.nom}}
@@ -26,12 +26,11 @@
             <li><a href="/supprimerCitation">Supprimer</a></li>
             {{/if}}
 		</ul>
-		<p><img class="menuImage" src="/image/ville.png"  alt="Ville"/>Ville</p>
+		<p><img class="menuImage" src="/image/ville.png"  alt="Ville"/> Ville</p>
 		<ul>
 			<li><a href="/listerVille">Lister</a></li>
 			{{#if session.nom}}
 			<li><a href="/ajouterVille">Ajouter</a></li>
-			<li><a href="/modifierVille">Modifier</a></li>
 			{{/if}}
             {{#if session.admin}}
             <li><a href="/supprimerVille">Supprimer</a></li>

@@ -193,11 +193,11 @@ module.exports.NoterCitation = function (request, response) {
 /* CITATION NOTEE */
 module.exports.CitationNotee = function (request, response) {
     var data = {
-        cit_num: parseInt(request.param("id")),
-        per_num: request.session.idPersonne,
-        vot_valeur: request.body.note
-    }
-    // On note la citation
+            cit_num: parseInt(request.param("id")),
+            per_num: request.session.idPersonne,
+            vot_valeur: request.body.note
+        }
+        // On note la citation
     modelVote.noteCitation(data, function (err, result) {
         if (err) {
             console.log(err);
@@ -229,12 +229,12 @@ module.exports.ValiderCitation = function (request, response) {
 /* CITATION VALIDEE */
 module.exports.CitationValidee = function (request, response) {
     response.title = 'Valider des citations';
-    
+
     var data = {
-        cit_num: parseInt(request.param("id")),
-        per_num_valide: request.session.idPersonne
-    }
-    // On valide la citation
+            cit_num: parseInt(request.param("id")),
+            per_num_valide: request.session.idPersonne
+        }
+        // On valide la citation
     model.citationValidee(data, function (err, result) {
         if (err) {
             console.log(err);

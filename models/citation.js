@@ -73,7 +73,7 @@ module.exports.citationValidee = function (data, callback) {
     });
 };
 
-/* Récupère les citations suivant les arguments de "data" */
+/* Récupère les citations suivant les arguments de "data", ou critères de recherche */
 module.exports.getRechercheCitation = function (data, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
