@@ -8,31 +8,31 @@
         <tr>
             <td>Nom</td>
             <td>
-                <input type="text" name="nomPers" id="nomPers" value="{{this.per_nom}}">
+                <input type="text" name="nomPers" id="nomPers" value="{{this.per_nom}}" required>
             </td>
         </tr>
         <tr>
             <td>Prénom</td>
             <td>
-                <input type="text" name="prenomPers" id="prenomPers" value="{{this.per_prenom}}">
+                <input type="text" name="prenomPers" id="prenomPers" value="{{this.per_prenom}}" required>
             </td>
         </tr>
         <tr>
             <td>Téléphone</td>
             <td>
-                <input type="text" name="telPers" id="telPers" value="{{this.per_tel}}">
+                <input type="text" name="telPers" id="telPers" value="{{this.per_tel}}" required>
             </td>
         </tr>
         <tr>
             <td>Mail</td>
             <td>
-                <input type="text" name="mailPers" id="mailPers" value="{{this.per_mail}}">
+                <input type="text" name="mailPers" id="mailPers" value="{{this.per_mail}}" required>
             </td>
         </tr>
         <tr>
             <td>Login</td>
             <td>
-                <input type="text" name="loginPers" id="loginPers" value="{{this.per_login}}">
+                <input type="text" name="loginPers" id="loginPers" value="{{this.per_login}}" required>
             </td>
         </tr>
         <tr>
@@ -114,10 +114,12 @@
             document.getElementById("detailEtu1").style.display = "";
             document.getElementById("detailEtu2").style.display = "";
             document.getElementById("detailSal1").style.display = "none";
+            document.getElementById("telPro").required = false;
             document.getElementById("detailSal2").style.display = "none";
             document.getElementById("validerPers").style.display = "";
         } else if (document.getElementById("salarie").checked) {
             document.getElementById("detailSal1").style.display = "";
+            document.getElementById("telPro").required = true;
             document.getElementById("detailSal2").style.display = "";
             document.getElementById("detailEtu1").style.display = "none";
             document.getElementById("detailEtu2").style.display = "none";
@@ -163,8 +165,10 @@
         var mdp = document.getElementById("mdpPers");
         if(document.getElementById("changerMdp").checked == true){
             mdp.style.display = "";
+            mdp.required = true;
         } else {
             mdp.style.display = "none";
+            mdp.required = false;
         }
     }
 </script>

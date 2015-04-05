@@ -103,10 +103,12 @@
             document.getElementById("detailEtu1").style.display = "";
             document.getElementById("detailEtu2").style.display = "";
             document.getElementById("detailSal1").style.display = "none";
+            document.getElementById("telPro").required = false;
             document.getElementById("detailSal2").style.display = "none";
             document.getElementById("validerPers").style.display= "";
         } else if (document.getElementById("salarie").checked) {
             document.getElementById("detailSal1").style.display = "";
+            document.getElementById("telPro").required = true;
             document.getElementById("detailSal2").style.display = "";
             document.getElementById("detailEtu1").style.display = "none";
             document.getElementById("detailEtu2").style.display = "none";
