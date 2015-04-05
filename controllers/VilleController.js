@@ -35,6 +35,12 @@ module.exports.InsertVille = function (request, response) {
     });
 };
 
+/* MODIFIER VILLE */
+module.exports.ModifierVille = function (request, response) {
+    response.title = 'Modifier une ville';
+    response.render('modifierVille', response);
+};
+
 /* SUPPRIMER VILLE */
 module.exports.SupprimerVille = function (request, response) {
     response.title = 'Supprimer des villes';
@@ -68,7 +74,7 @@ module.exports.VilleSupprimee = function (request, response) {
             return;
         }
         response.listeVille = result;
-
+        
         response.supprimer = true;
         response.render('supprimerVille', response);
     });

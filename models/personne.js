@@ -1,3 +1,4 @@
+// appel du module pour le cryptage du mot de passe
 var crypto = require('crypto');
 var db = require('../configDb');
 
@@ -14,18 +15,19 @@ var db = require('../configDb');
 module.exports.getLoginOk = function (data, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
-            // Cryptage du mdp en sha256
-            var sha256 = crypto.createHash("sha256");
+            var sha256 = crypto.createHash("sha256"); // cryptage en sha256
             sha256.update(data.pass, "utf8");
             var resu = sha256.digest("base64");
+            //console.log ('Mot de passe en clair : ' + data.pass); 
+            //console.log ('Mot de passe crypté : ' + resu);	 	
             req = "SELECT per_num, per_admin from personne where per_login =" + connexion.escape(data.login) + " and per_pwd = " + connexion.escape(resu);
+            //console.log(req);
             connexion.query(req, callback);
             connexion.release();
         }
     });
 };
 
-/* On récupère la liste des personnes de la BD */
 module.exports.getListePersonne = function (callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -35,7 +37,6 @@ module.exports.getListePersonne = function (callback) {
     });
 };
 
-/* On récupère une personne de la BD par son identifiant */
 module.exports.getPersonne = function (id, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -44,7 +45,7 @@ module.exports.getPersonne = function (id, callback) {
         }
     });
 };
-/* On ajoute une personne à la BD */
+
 module.exports.ajoutePersonne = function (data, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -58,7 +59,6 @@ module.exports.ajoutePersonne = function (data, callback) {
     });
 };
 
-/* On met à jour une personne de la BD */
 module.exports.modifiePersonne = function (data, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -74,7 +74,6 @@ module.exports.modifiePersonne = function (data, callback) {
     });
 };
 
-/* On récupère une personne de la BD par son login */
 module.exports.getIdByLogin = function (data, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -84,7 +83,6 @@ module.exports.getIdByLogin = function (data, callback) {
     });
 };
 
-/* On demande si oui ou non la personne est un étudiant */
 module.exports.estEtudiant = function (id, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -94,7 +92,6 @@ module.exports.estEtudiant = function (id, callback) {
     });
 };
 
-/* On demande si oui ou non la personne est un salarié */
 module.exports.estSalarie = function (id, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
@@ -104,7 +101,6 @@ module.exports.estSalarie = function (id, callback) {
     });
 };
 
-/* On supprime une personne de la BD */
 module.exports.deletePersonne = function (id, callback) {
     db.getConnection(function (err, connexion) {
         if (!err) {
