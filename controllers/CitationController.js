@@ -12,7 +12,6 @@ module.exports.ListerCitation = function (request, response) {
             console.log(err);
             return;
         }
-
         modelVote.getListeVote(function (err, result2) {
             if (err) {
                 console.log(err);
@@ -27,6 +26,7 @@ module.exports.ListerCitation = function (request, response) {
                         result[index].estNotable = false;
                     }
                 }
+                // On corrige l'affichage
                 if (result[index].vot_moy == null) {
                     result[index].vot_moy = 'Aucune note';
                 }
@@ -47,7 +47,6 @@ module.exports.AjouterCitation = function (request, response) {
 
     modelSalarie.getListeSalarie(function (err, result) {
         if (err) {
-            // gestion de l'erreur
             console.log(err);
             return;
         }
@@ -60,6 +59,7 @@ module.exports.AjouterCitation = function (request, response) {
 module.exports.InsertCitation = function (request, response) {
     response.title = 'Ajouter des citations';
 
+    // On récupère la liste des mots interdits
     modelMot.getListeMot(function (err, result) {
         if (err) {
             console.log(err);
@@ -123,12 +123,14 @@ module.exports.InsertCitation = function (request, response) {
 module.exports.RechercherCitation = function (request, response) {
     response.title = 'Rechercher des citations';
 
+    // On récupère juste les dates des citations
     model.getListeCitationDate(function (err, result) {
         if (err) {
             console.log(err);
             return;
         }
         response.listeCitationDate = result;
+        // On récupère juste les salariés concernés par au moins une citation
         model.getListeCitationSalarie(function (err, result) {
             if (err) {
                 console.log(err);
@@ -143,6 +145,8 @@ module.exports.RechercherCitation = function (request, response) {
 /* CITATION RECHERCHEE */
 module.exports.CitationRecherchee = function (request, response) {
     response.title = 'Rechercher des citations';
+
+    // On récupère les paramètres de recherche
     var data = {};
     if (request.body.salarie != "0") {
         data.per_num = request.body.salarie;
@@ -157,7 +161,13 @@ module.exports.CitationRecherchee = function (request, response) {
         data.noteMoinsUn = parseInt(request.body.note) - 1;
         data.notePlusUn = parseInt(request.body.note) + 1;
     }
+    // On récupère les citations correspondant au critère de recherche
     model.getRechercheCitation(data, function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        // Affichage
         if (result != undefined) {
             for (var index = 0; index < result.length; index++) {
                 if (result[index].vot_moy == null) {
@@ -186,6 +196,7 @@ module.exports.CitationNotee = function (request, response) {
         per_num: request.session.idPersonne,
         vot_valeur: request.body.note
     }
+    // On note la citation
     modelVote.noteCitation(data, function (err, result) {
         if (err) {
             console.log(err);
@@ -199,6 +210,7 @@ module.exports.CitationNotee = function (request, response) {
 module.exports.ValiderCitation = function (request, response) {
     response.title = 'Valider des citations';
 
+    // On récupère juste la liste des citations non valides
     model.getListeCitationNonValide(function (err, result) {
         if (err) {
             console.log(err);
@@ -214,18 +226,19 @@ module.exports.ValiderCitation = function (request, response) {
 
 /* CITATION VALIDEE */
 module.exports.CitationValidee = function (request, response) {
+    response.title = 'Valider des citations';
+    
     var data = {
         cit_num: parseInt(request.param("id")),
         per_num_valide: request.session.idPersonne
     }
+    // On valide la citation
     model.citationValidee(data, function (err, result) {
         if (err) {
             console.log(err);
             return;
         }
     });
-
-    response.title = 'Valider des citations';
 
     model.getListeCitationNonValide(function (err, result) {
         if (err) {
@@ -243,6 +256,7 @@ module.exports.CitationValidee = function (request, response) {
 module.exports.SupprimerCitation = function (request, response) {
     response.title = 'Supprimer des citations';
 
+    // On récupère TOUTES les citations
     model.getListeCitationAll(function (err, result) {
         if (err) {
             console.log(err);
@@ -257,7 +271,7 @@ module.exports.SupprimerCitation = function (request, response) {
 /* CITATION SUPPRIMEE */
 module.exports.CitationSupprimee = function (request, response) {
     response.title = 'Supprimer des citations';
-    
+
     var id = parseInt(request.param("id"));
     model.supprimerCitation(id, function (err, result) {
         if (err) {
@@ -265,7 +279,7 @@ module.exports.CitationSupprimee = function (request, response) {
             return;
         }
     });
-    
+
     model.getListeCitationAll(function (err, result) {
         if (err) {
             console.log(err);
