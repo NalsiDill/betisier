@@ -52,7 +52,6 @@ module.exports = function (app) {
     app.get('/listerVille', VilleController.ListerVille);
     app.get('/ajouterVille', verifConnecte, VilleController.AjouterVille);
     app.post('/ajouterVille', verifConnecte, VilleController.InsertVille);
-    app.get('/modifierVille', verifAdmin, VilleController.ModifierVille);
     app.get('/supprimerVille', verifAdmin, VilleController.SupprimerVille);
     app.get('/supprimerVille/:id', verifAdmin, VilleController.VilleSupprimee);
 

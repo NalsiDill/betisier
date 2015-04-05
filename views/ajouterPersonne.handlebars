@@ -11,44 +11,44 @@
         <tr>
             <td>Nom</td>
             <td>
-                <input type="text" name="nomPers" id="nomPers">
+                <input type="text" name="nomPers" id="nomPers" required>
             </td>
         </tr>
         <tr>
             <td>Prénom</td>
             <td>
-                <input type="text" name="prenomPers" id="prenomPers">
+                <input type="text" name="prenomPers" id="prenomPers" required>
             </td>
         </tr>
         <tr>
             <td>Téléphone</td>
             <td>
-                <input type="text" name="telPers" id="telPers">
+                <input type="text" name="telPers" id="telPers" required>
             </td>
         </tr>
         <tr>
             <td>Mail</td>
             <td>
-                <input type="text" name="mailPers" id="mailPers">
+                <input type="text" name="mailPers" id="mailPers" required>
             </td>
         </tr>
         <tr>
             <td>Login</td>
             <td>
-                <input type="text" name="loginPers" id="loginPers">
+                <input type="text" name="loginPers" id="loginPers" required>
             </td>
         </tr>
         <tr>
             <td>Mot de passe</td>
             <td>
-                <input type="password" name="mdpPers" id="mdpPers">
+                <input type="password" name="mdpPers" id="mdpPers" required>
             </td>
         </tr>
         <tr>
             <td>Catégorie</td>
             <td>
-                <input type="radio" name="categorie" value="etudiant" id="etudiant" onchange=switchDetail()> Etudiant
-                <input type="radio" name="categorie" value="salarie" id="salarie" onchange=switchDetail()> Salarié
+                <input type="radio" name="categorie" value="etudiant" id="etudiant" onchange=switchDetail() required> Etudiant
+                <input type="radio" name="categorie" value="salarie" id="salarie" onchange=switchDetail() required> Salarié
             </td>
         </tr>
         <tr id="detailEtu1" style="display:none;">
