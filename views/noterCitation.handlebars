@@ -1,6 +1,10 @@
 {{> enTete}} {{> menu}}
 <h1>Noter une citation</h1>
-<form method="post" action="/citationNotee/{{this.idCitation}}" name="noteCitation">
+{{#if noter}}
+<p><img src="/image/valid.png"> La citation a bien notée</p>
+<a href="/listerCitation">Revenir à la liste</a>
+{{else}}
+<form method="post" action="/noterCitation/{{this.idCitation}}" name="noteCitation">
     <table>
         <tr>
             <td>
@@ -17,3 +21,4 @@
         </tr>
     </table>
 </form>
+{{/if}}

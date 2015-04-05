@@ -1,5 +1,9 @@
 {{> enTete}} {{> menu}}
 <h1>Liste des citations non validées</h1>
+{{#if valider}}
+<p><img src="/image/valid.png"> La citation a bien été validée</p>
+<a href="/validerCitation">Revenir à la liste</a>
+{{else}}
 {{#if listeCitation}}
 <table>
     <tr>
@@ -13,10 +17,11 @@
         <td>{{this.per_prenom}} {{this.per_nom}}</td>
         <td>{{this.cit_libelle}}</td>
         <td>{{this.cit_date}}</td>
-        <td><a href="/citationValidee/{{this.cit_num}}"><img src="/image/valid.png"></a></td>
+        <td><a href="/validerCitation/{{this.cit_num}}"><img src="/image/valid.png"></a></td>
     </tr>
     {{/each}}
 </table>
 {{else}}
 <p>Aucune citation à valider !</p>
+{{/if}}
 {{/if}}

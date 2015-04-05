@@ -85,7 +85,8 @@ module.exports.AjoutePersonne = function (request, response) {
                         console.log(err);
                         return;
                     }
-                    response.render('etudiantAjoute', response);
+                    response.ajouterEtu = true;
+                    response.render('ajouterPersonne', response);
                 });
 
 
@@ -100,7 +101,8 @@ module.exports.AjoutePersonne = function (request, response) {
                         console.log(err);
                         return;
                     }
-                    response.render('salarieAjoute', response);
+                    response.ajouterSal = true;
+                    response.render('ajouterPersonne', response);
                 });
 
             } else {
@@ -273,7 +275,8 @@ module.exports.PersonneModifiee = function (request, response) {
                             console.log(err);
                             return;
                         }
-                        response.render('personneModifiee', response);
+                        response.modifier = true;
+                        response.render('modifierPersonne', response);
                     });
                 });
             } else {
@@ -282,7 +285,8 @@ module.exports.PersonneModifiee = function (request, response) {
                         console.log(err);
                         return;
                     }
-                    response.render('personneModifiee', response);
+                    response.modifier = true;
+                    response.render('modifierPersonne', response);
                 });
             }
 
@@ -304,7 +308,8 @@ module.exports.PersonneModifiee = function (request, response) {
                             console.log(err);
                             return;
                         }
-                        response.render('personneModifiee', response);
+                        response.modifier = true;
+                        response.render('modifierPersonne', response);
                     });
                 });
             } else {
@@ -313,7 +318,8 @@ module.exports.PersonneModifiee = function (request, response) {
                         console.log(err);
                         return;
                     }
-                    response.render('personneModifiee', response);
+                    response.modifier = true;
+                    response.render('modifierPersonne', response);
                 });
             }
         }

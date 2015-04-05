@@ -1,6 +1,9 @@
 {{> enTete}} {{> menu}}
 <h1>Ajouter une citation</h1>
-<form method="post" action="/insertCitation" name="ajoutCitation">
+{{#if ajouter}}
+<p><img src="/image/valid.png"> La citation a été ajoutée</p>
+{{else}}
+<form method="post" action="/ajouterCitation" name="ajoutCitation">
     <table>
         <tr>
             <td>
@@ -67,4 +70,5 @@
         }
     }
 </script>
+{{/if}}
 {{/if}}

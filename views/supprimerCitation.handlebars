@@ -1,5 +1,9 @@
 {{> enTete}} {{> menu}}
 <h1>Supprimer des citations</h1>
+{{#if supprimer}}
+<p><img src="/image/valid.png"> La citation a été supprimée</p>
+<a href="/supprimerCitation">Revenir à la liste</a>
+{{else}}
 <table>
     <tr>
         <th>Nom de l'enseignant</th>
@@ -14,3 +18,4 @@
     </tr>
     {{/each}}
 </table>
+{{/if}}

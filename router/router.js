@@ -38,20 +38,20 @@ module.exports = function (app) {
     // citations
     app.get('/listerCitation', CitationController.ListerCitation);
     app.get('/ajouterCitation', verifEtudiant, CitationController.AjouterCitation);
-    app.post('/insertCitation', verifEtudiant, CitationController.InsertCitation);
+    app.post('/ajouterCitation', verifEtudiant, CitationController.InsertCitation);
     app.get('/rechercherCitation', verifConnecte, CitationController.RechercherCitation);
     app.post('/rechercherCitation', CitationController.CitationRecherchee);
     app.get('/validerCitation', verifAdmin, CitationController.ValiderCitation);
-    app.get('/citationValidee/:id', verifAdmin, CitationController.CitationValidee);
+    app.get('/validerCitation/:id', verifAdmin, CitationController.CitationValidee);
     app.get('/noterCitation/:id', verifEtudiant, CitationController.NoterCitation);
-    app.post('/citationNotee/:id', verifEtudiant, CitationController.CitationNotee);
+    app.post('/noterCitation/:id', verifEtudiant, CitationController.CitationNotee);
     app.get('/supprimerCitation', verifAdmin, CitationController.SupprimerCitation);
     app.get('/supprimerCitation/:id', verifAdmin, CitationController.CitationSupprimee);
 
     // villes
     app.get('/listerVille', VilleController.ListerVille);
     app.get('/ajouterVille', verifConnecte, VilleController.AjouterVille);
-    app.post('/insertVille', verifConnecte, VilleController.InsertVille);
+    app.post('/ajouterVille', verifConnecte, VilleController.InsertVille);
     app.get('/modifierVille', verifAdmin, VilleController.ModifierVille);
     app.get('/supprimerVille', verifAdmin, VilleController.SupprimerVille);
     app.get('/supprimerVille/:id', verifAdmin, VilleController.VilleSupprimee);

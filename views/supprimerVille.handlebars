@@ -1,5 +1,9 @@
 {{> enTete}} {{> menu}}
 <h1>Supprimer des villes</h1>
+{{#if supprimer}}
+<p><img src="/image/valid.png"> La ville a été supprimée</p>
+<a href="/supprimerVille">Revenir à la liste</a>
+{{else}}
 <table>
     <tr>
         <th>Numéro</th>
@@ -17,3 +21,4 @@
     </tr>
     {{/each}}
 </table>
+{{/if}}

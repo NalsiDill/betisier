@@ -1,5 +1,11 @@
 {{> enTete}} {{> menu}}
 <h1>Ajouter une personne</h1>
+{{#if ajouterEtu}}
+<p><img src="/image/valid.png"> L'étudiant a été ajouté !</p>
+{{else}}
+{{#if ajouterSal}}
+<p><img src="/image/valid.png"> Le salarié a été ajouté !</p>
+{{else}}
 <form method="post" action="/ajouterPersonne" name="ajoutPersonne" id="formPers">
     <table>
         <tr>
@@ -88,6 +94,9 @@
         </tr>
     </table>
 </form>
+{{/if}}
+{{/if}}
+
 <script>
     function switchDetail() {
         if (document.getElementById("etudiant").checked) {

@@ -1,5 +1,8 @@
 {{> enTete}} {{> menu}}
 <h1>Modifier une personne</h1>
+{{#if modifier}}
+<p><img src="/image/valid.png"> La personne a été modifiée !</p>
+{{else}}
 <form method="post" action="/modifierPersonne/{{this.per_num}}" name="modifierPersonne" id="formPers">
     <table>
         <tr>
@@ -92,6 +95,7 @@
     <input id="div" name="div" style="display: none;" value="{{this.div_num}}"/>
         <input id="fon" name="fon" style="display: none;" value="{{this.fon_num}}"/>
 </form>
+{{/if}}
 
 
 

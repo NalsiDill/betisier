@@ -113,7 +113,8 @@ module.exports.InsertCitation = function (request, response) {
 
             };
             model.insertCitation(data);
-            response.render('citationAjoutee', response);
+            response.ajouter = true;
+            response.render('ajouterCitation', response);
         }
     });
 };
@@ -202,7 +203,8 @@ module.exports.CitationNotee = function (request, response) {
             console.log(err);
             return;
         }
-        response.render('citationNotee', response);
+        response.noter = true;
+        response.render('noterCitation', response);
     });
 };
 
@@ -247,7 +249,8 @@ module.exports.CitationValidee = function (request, response) {
         }
         response.listeCitation = result;
         response.nbCitation = result.length;
-        response.render('citationValidee', response);
+        response.valider = true;
+        response.render('listerCitationNonValide', response);
     });
 
 };
@@ -286,7 +289,8 @@ module.exports.CitationSupprimee = function (request, response) {
             return;
         }
         response.listeCitation = result;
-        response.render('citationSupprimee', response);
+        response.supprimer = true;
+        response.render('supprimerCitation', response);
     });
 
 };

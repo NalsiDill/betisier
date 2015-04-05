@@ -1,7 +1,24 @@
 {{> enTete}}
 {{> menu}}
 <h1>Ajouter une ville</h1>
-<form method="post" action="/insertVille" name="ajoutVille">
-    Nom : <input type="text" name="nomVille" id="nomVille"> <br>
-    <input type="submit" value="Valider">
+{{#if ajouter}}
+<p><img src="/image/valid.png"> La ville "<b>{{ ville }}</b>" a été ajoutée</p>
+{{else}}
+<form method="post" action="/ajouterVille" name="ajoutVille">
+<table>
+    <tr>
+        <td>
+            Nom
+        </td>
+        <td>
+            <input type="text" name="nomVille" id="nomVille">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Valider">
+        </td>
+    </tr>
+</table>
 </form>
+{{/if}}
